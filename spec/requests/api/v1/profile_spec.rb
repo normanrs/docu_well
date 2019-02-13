@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'the profile endpoint' do
   it 'returns content json from objects' do
     VCR.use_cassette("profile_endpoint_spec") do
+      
       get "/api/v1/profile"
 
       expect(response.status).to eq 200

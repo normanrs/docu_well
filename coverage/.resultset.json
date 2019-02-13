@@ -185,14 +185,45 @@
       "/Users/normanrs/turing/4module/projects/my_health_navigator/config/routes.rb": [
         1,
         null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/normanrs/turing/4module/projects/my_health_navigator/spec/support/factory_bot.rb": [
         1,
         1,
         null
+      ],
+      "/Users/normanrs/turing/4module/projects/my_health_navigator/app/controllers/api/v1/profile_controller.rb": [
+        1,
+        null,
+        1,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/normanrs/turing/4module/projects/my_health_navigator/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/normanrs/turing/4module/projects/my_health_navigator/app/models/profile.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/normanrs/turing/4module/projects/my_health_navigator/app/models/application_record.rb": [
+        1,
+        1,
+        null
       ]
     },
-    "timestamp": 1550097070
+    "timestamp": 1550098182
   }
 }
