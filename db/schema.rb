@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_215050) do
+ActiveRecord::Schema.define(version: 2019_02_13_215304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 2019_02_13_215050) do
     t.string "phone"
   end
 
+  create_table "tests", force: :cascade do |t|
+    t.date "day"
+    t.string "type"
+    t.string "notes"
+    t.bigint "appointment_id"
+    t.index ["appointment_id"], name: "index_tests_on_appointment_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -71,4 +79,5 @@ ActiveRecord::Schema.define(version: 2019_02_13_215050) do
   add_foreign_key "insurances", "profiles"
   add_foreign_key "profiles", "providers"
   add_foreign_key "profiles", "users"
+  add_foreign_key "tests", "appointments"
 end
