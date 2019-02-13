@@ -1,13 +1,13 @@
 require 'spec_helper'
 require 'simplecov'
-require 'support/factory_bot'
 SimpleCov.start
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'benchmark'
+
 require 'rspec/rails'
+require 'support/factory_bot'
 require 'vcr'
 require 'webmock/rspec'
 
