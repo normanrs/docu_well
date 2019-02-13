@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_214654) do
+ActiveRecord::Schema.define(version: 2019_02_13_215050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.date "day"
+    t.time "hour"
+    t.bigint "provider_id"
+    t.bigint "profile_id"
+    t.index ["profile_id"], name: "index_appointments_on_profile_id"
+    t.index ["provider_id"], name: "index_appointments_on_provider_id"
+  end
 
   create_table "insurances", force: :cascade do |t|
     t.integer "insurance_type", limit: 2
@@ -57,6 +66,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_214654) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "appointments", "profiles"
+  add_foreign_key "appointments", "providers"
   add_foreign_key "insurances", "profiles"
   add_foreign_key "profiles", "providers"
   add_foreign_key "profiles", "users"
