@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_215304) do
+ActiveRecord::Schema.define(version: 2019_02_13_215721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 2019_02_13_215304) do
     t.string "phone_number"
     t.bigint "profile_id"
     t.index ["profile_id"], name: "index_insurances_on_profile_id"
+  end
+
+  create_table "prescriptions", force: :cascade do |t|
+    t.string "name"
+    t.date "day"
+    t.string "dose"
+    t.string "directions"
+    t.boolean "refill"
+    t.bigint "provider_id"
+    t.index ["provider_id"], name: "index_prescriptions_on_provider_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -77,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_215304) do
   add_foreign_key "appointments", "profiles"
   add_foreign_key "appointments", "providers"
   add_foreign_key "insurances", "profiles"
+  add_foreign_key "prescriptions", "providers"
   add_foreign_key "profiles", "providers"
   add_foreign_key "profiles", "users"
   add_foreign_key "tests", "appointments"
