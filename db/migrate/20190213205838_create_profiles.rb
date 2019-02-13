@@ -11,7 +11,6 @@ class CreateProfiles < ActiveRecord::Migration[5.2]
       t.integer :heart_rate, :limit => 1
       t.integer :blood_type, :limit => 1
       t.references :user, foreign_key: true
-      # t.references :provider, foreign_key: true
     end
   end
 end
