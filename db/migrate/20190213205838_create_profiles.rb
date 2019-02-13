@@ -4,14 +4,14 @@ class CreateProfiles < ActiveRecord::Migration[5.2]
       t.string :given_name
       t.string :surname
       t.date :dob
-      t.small_int :height
-      t.small_int :weight
-      t.small_int :bp_systolic
-      t.small_int :bp_diastolic
-      t.small_int :heart_rate
-      t.small_int :blood_type
+      t.integer :height, :limit => 1
+      t.integer :weight, :limit => 1
+      t.integer :bp_systolic, :limit => 1
+      t.integer :bp_diastolic, :limit => 1
+      t.integer :heart_rate, :limit => 1
+      t.integer :blood_type, :limit => 1
       t.references :user, foreign_key: true
-      t.references :provider, foreign_key: true
+      # t.references :provider, foreign_key: true
     end
   end
 end
