@@ -22,11 +22,8 @@ The app provides the following endpoints:
 
 response:<br/>
 `{"data"=>`<br/>
-  `{"id"=>"4",`<br/>
-   `"type"=>"user",`<br/>
-   `"attributes"=>`<br/>
-  		`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"`<br/>
-		`}`<br/>
+  `{"id"=>"4", "type"=>"user", "attributes"=>`<br/>
+  	`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"}`<br/>
   `}`<br/>
 `}`<br/>
 
