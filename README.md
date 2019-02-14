@@ -20,26 +20,26 @@ The app provides the following endpoints:
 
 `POST http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
-response: 
-`{"data"=>
-  {"id"=>"4",
-   "type"=>"user",
-   "attributes"=>
-  		{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"
-		}
-  }
-}`
+response:<br/>
+`{"data"=>`
+  `{"id"=>"4",`
+   `"type"=>"user",`
+   `"attributes"=>`
+  		`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"`
+		`}`
+  `}`
+`}`
 
 GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
-response: <br/>
-`{"data"=> <br/>
-  {"id"=>"1", <br/>
-   "type"=>"user", <br/>
-   "attributes"=> <br/>
-  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"} <br/>
-  }<br/>
-}`<br/>
+response:<br/>
+`{"data"=> 
+  {"id"=>"1", 
+   "type"=>"user", 
+   "attributes"=> 
+  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"} 
+  }
+}`
 
 GET  `http://localhost:3000/api/v1/profile params: { api_key: '1234abcd' }`
 
