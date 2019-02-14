@@ -21,14 +21,14 @@ The app provides the following endpoints:
 `POST http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
 response:<br/>
-`{"data"=>`
-  `{"id"=>"4",`
-   `"type"=>"user",`
-   `"attributes"=>`
-  		`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"`
-		`}`
-  `}`
-`}`
+`{"data"=>`<br/>
+  `{"id"=>"4",`<br/>
+   `"type"=>"user",`<br/>
+   `"attributes"=>`<br/>
+  		`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"`<br/>
+		`}`<br/>
+  `}`<br/>
+`}`<br/>
 
 GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
