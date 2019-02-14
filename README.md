@@ -16,6 +16,62 @@ rails s (to spin up the server)
 
 Describe the app's features
 
+The app provides the following endpoints:
+
+`POST http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+
+response: 
+{"data"=>
+  {"id"=>"4",
+   "type"=>"user",
+   "attributes"=>
+  		{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"
+		}
+  }
+}
+
+GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+
+response: 
+{"data"=>
+  {"id"=>"1",
+   "type"=>"user",
+   "attributes"=>
+  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"
+		}
+  }
+}
+
+GET  `http://localhost:3000/api/v1/profile params: { api_key: '1234abcd' }`
+
+response:
+{:data=>
+  {:id=>"1",
+   :type=>"profile",
+   :attributes=>
+    {:given_name=>"Ms. Anisa Mohr",
+     :surname=>"Aristotle",
+     :dob=>"1981-02-22",
+     :height=>68,
+     :weight=>16,
+     :bp_systolic=>124,
+     :bp_diastolic=>107,
+     :heart_rate=>147,
+     :blood_type=>"b_negative",
+     :provider=>
+      {:id=>1,
+       :first_name=>"Artemis",
+       :last_name=>"Vision",
+       :street_address=>"150 Kecia Valley",
+       :city=>"Port Tessa",
+       :state=>"KY",
+       :zip=>"82725",
+       :phone=>"1-718-305-2952"
+	   }
+	  }
+  }
+ }
+
 FEATURE
 stuff it needs
 stuff it does
