@@ -23,6 +23,7 @@ describe 'the profile endpoint' do
                                 user_id: user.id,
                                 provider_id: provider.id )
 
+    data = { api_key: user.api_key }
     get "/api/v1/profile"
 
     expect(response.status).to eq 200
@@ -38,7 +39,8 @@ describe 'the profile endpoint' do
     expect(result[:data][:attributes].keys.include?(:bp_diastolic)).to be(true)
     expect(result[:data][:attributes].keys.include?(:heart_rate)).to be(true)
     expect(result[:data][:attributes].keys.include?(:blood_type)).to be(true)
-    expect(result[:data][:attributes].keys.include?(:provider_id)).to be(true)
+    expect(result[:data][:attributes].keys.include?(:provider)).to be(true)
+    expect(result[:data][:attributes][:provider][:id]).to eq(provider.id)
   end
 
 end

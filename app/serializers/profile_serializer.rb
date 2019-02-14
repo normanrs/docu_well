@@ -9,5 +9,5 @@ class ProfileSerializer
              :bp_diastolic,
              :heart_rate,
              :blood_type,
-             :provider_id
+             :provider
 end

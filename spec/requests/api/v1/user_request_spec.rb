@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'POST /users' do
   it 'creates user and returns their api key' do
-    data = {email: 'email@gmail.com',
-            password: '12345'
-            }
-
+    data = { email: 'email@gmail.com', password: '12345' }
     post "/api/v1/users", params: data
     expect(response.status).to eq(201)
     parsed_response = JSON.parse(response.body)
