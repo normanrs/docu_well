@@ -4,7 +4,7 @@ describe 'the profile endpoint' do
   it 'returns content json from objects' do
     provider = create(:provider)
     user     = create(:user)
-    profile  = create(:profile)
+    profile  = create(:profile, user_id: user.id)
 
     data = { api_key: user.api_key }
     get "/api/v1/profile", params: data
