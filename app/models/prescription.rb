@@ -1,2 +1,2 @@
-class Prescription < ActiveRecord
+class Prescription < ApplicationRecord
 end
