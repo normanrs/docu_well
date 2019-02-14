@@ -11,7 +11,7 @@ RSpec.describe 'POST /users' do
   end
 
   it 'returns api key for existing user' do
-    user = User.create(email: 'email@gmail.com', password: '12345')
+    user = create(:user)
 
     get "/api/v1/users?email=#{user.email}&password=#{user.password}"
     expect(response.status).to eq(200)
