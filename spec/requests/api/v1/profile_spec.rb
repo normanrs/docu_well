@@ -24,7 +24,7 @@ describe 'the profile endpoint' do
                                 provider_id: provider.id )
 
     data = { api_key: user.api_key }
-    get "/api/v1/profile"
+    get "/api/v1/profile", params: data
 
     expect(response.status).to eq 200
     result = JSON.parse(response.body, symbolize_names: true)
