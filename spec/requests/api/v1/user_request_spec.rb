@@ -22,6 +22,5 @@ RSpec.describe 'POST /users' do
     key = parsed_response["data"]["attributes"]["api_key"]
 
     expect(key).to eq(User.last.api_key)
-    binding.pry
   end
 end

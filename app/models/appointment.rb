@@ -1,2 +1,2 @@
-class Appointment < ActiveRecord
+class Appointment < ApplicationRecord
 end
