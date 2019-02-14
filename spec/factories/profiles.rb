@@ -4,7 +4,6 @@ FactoryBot.define do
     given_name {'Frida'}
     surname {'Cowlow'}
 
-
   end
 
 end
