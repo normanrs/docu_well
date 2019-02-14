@@ -32,19 +32,18 @@ response:
 
 GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
-response: 
-`{"data"=>
-  {"id"=>"1",
-   "type"=>"user",
-   "attributes"=>
-  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"
-		}
-  }
-}`
+response: <br/>
+`{"data"=> <br/>
+  {"id"=>"1", <br/>
+   "type"=>"user", <br/>
+   "attributes"=> <br/>
+  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"} <br/>
+  }<br/>
+}`<br/>
 
 GET  `http://localhost:3000/api/v1/profile params: { api_key: '1234abcd' }`
 
-response:
+response:<br/>
 `{:data=>
   {:id=>"1",
    :type=>"profile",
