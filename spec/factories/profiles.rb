@@ -10,6 +10,6 @@ FactoryBot.define do
     heart_rate { Faker::Number.between(30, 200) }
     blood_type { Faker::Number.between(0, 7) }
     provider_id { 1 }
-    user_id { 1 }
+    association :user, factory: :user
   end
 end
