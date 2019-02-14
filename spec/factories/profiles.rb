@@ -8,7 +8,7 @@ FactoryBot.define do
     bp_systolic { Faker::Number.between(70, 160) }
     bp_diastolic { Faker::Number.between(40, 130) }
     heart_rate { Faker::Number.between(30, 200) }
-    blood_type { Faker::Number.between(1, 8) }
+    blood_type { Faker::Number.between(0, 7) }
     provider_id { 1 }
     user_id { 1 }
   end
