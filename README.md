@@ -18,7 +18,7 @@ Describe the app's features
 
 The app provides the following endpoints:
 
-`POST http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+`POST https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
 response:<br/>
 `{"data"=>`<br/>
@@ -27,7 +27,7 @@ response:<br/>
   `}`<br/>
 `}`<br/>
 
-GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+GET  `https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
 response:<br/>
 `{"data"=>`
@@ -36,7 +36,7 @@ response:<br/>
   `}`
 `}`
 
-GET  `http://localhost:3000/api/v1/profile params: { api_key: '1234abcd' }`
+GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '1234abcd' }`
 
 response:<br/>
 `{:data=>` <br/>
