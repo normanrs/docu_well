@@ -18,25 +18,25 @@ Describe the app's features
 
 The app provides the following endpoints:
 
-`POST https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+`POST https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'user1email@gmail.com', password: '12345' }`
 
 response:<br/>
 `{"data"=>`<br/>
   `{"id"=>"4", "type"=>"user", "attributes"=>`<br/>
-  	`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"}`<br/>
+  	`{"api_key"=>"NfHnzbREj_tWkKmbdxh5Og"}`<br/>
   `}`<br/>
 `}`<br/>
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+GET  `https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'user1email@gmail.com', password: '12345' }`
 
 response:<br/>
 `{"data"=>`
   `{"id"=>"1", "type"=>"user", "attributes"=>` <br/>
-      `{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"}` <br/>
+      `{"api_key"=>"NfHnzbREj_tWkKmbdxh5Og"}` <br/>
   `}`
 `}`
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '6gZvWv2xWtYpEyLWLZAY-g' }`
+GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: 'NfHnzbREj_tWkKmbdxh5Og' }`
 
 response:<br/>
 `{:data=>` <br/>
