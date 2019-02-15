@@ -36,7 +36,7 @@ response:<br/>
   `}`
 `}`
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '1234abcd' }`
+GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '6gZvWv2xWtYpEyLWLZAY-g' }`
 
 response:<br/>
 `{:data=>` <br/>
