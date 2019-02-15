@@ -20,6 +20,37 @@ The app provides the following endpoints:
 
 `POST http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
 
+response: 
+`{"data"=>
+  {"id"=>"4",
+   "type"=>"user",
+   "attributes"=>
+  		{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"
+		}
+  }
+}`
+
+GET  `http://localhost:3000/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+
+response: 
+`{"data"=>
+  {"id"=>"1",
+   "type"=>"user",
+   "attributes"=>
+  		{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"
+		}
+  }
+}`
+
+GET  `http://localhost:3000/api/v1/profile params: { api_key: '1234abcd' }`
+
+response:
+`{:data=>
+  {:id=>"1",
+   :type=>"profile",
+   :attributes=>
+    {:given_name=>"Ms. Anisa Mohr",
+
 response:<br/>
 `{"data"=>`<br/>
   `{"id"=>"4", "type"=>"user", "attributes"=>`<br/>
@@ -58,10 +89,17 @@ response:<br/>
        :city=>"Port Tessa",
        :state=>"KY",
        :zip=>"82725",
+       :phone=>"1-718-305-2952"
+	   }
+	  }
+  }
+ }`
+
        :phone=>"1-718-305-2952"}` <br/>
 	  `}`
   `}`
  `}`
+
 
 FEATURE
 stuff it needs
