@@ -9,7 +9,7 @@ describe 'the profile endpoint' do
     create(:insurance, profile_id: profile.id)
 
     data = { api_key: user.api_key }
-    get "/api/v1/profile", params: data
+    get "/api/v1/profiles", params: data
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)[:data]
     expect(data[0][:id]).not_to be_empty
@@ -47,7 +47,7 @@ describe 'the profile endpoint' do
       surname: surname, dob: dob, height: height, weight: weight, bp_systolic: bp_systolic,
       bp_diastolic: bp_diastolic, heart_rate: heart_rate, blood_type: blood_type, user_id: user.id, provider_id: provider.id }
 
-    post "/api/v1/profile", params: data
+    post "/api/v1/profiles", params: data
 
     expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
