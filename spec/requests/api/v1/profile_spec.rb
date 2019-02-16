@@ -4,7 +4,7 @@ describe 'the profile endpoint' do
   it 'returns content json from objects' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
     create(:insurance, profile_id: profile.id)
 
@@ -29,5 +29,19 @@ describe 'the profile endpoint' do
     expect(data[:attributes][:provider][:id]).to eq(provider.id)
     expect(data[:attributes][:insurances].count).to eq(2)
     expect(data[:attributes][:insurances][0].keys.include?(:id)).to be(true)
+  end
+
+  it 'deletes profile' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    create(:insurance, profile_id: profile.id)
+    create(:insurance, profile_id: profile.id)
+
+    data = { api_key: user.api_key, profile_id: profile.id }
+    delete "/api/v1/profile", params: data
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).to eq("Profile deleted!")
   end
 end

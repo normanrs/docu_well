@@ -1,4 +1,3 @@
-FactoryBot.create(:provider)
 profile_1 = FactoryBot.create(:profile)
 profile_2 = FactoryBot.create(:profile)
 profile_3 = FactoryBot.create(:profile)
