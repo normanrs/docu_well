@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get    '/users',   to: 'user#show'
 
       post   '/insurances', to: 'insurances#create'
+      get    '/insurances', to: 'insurances#index'
     end
   end
 end

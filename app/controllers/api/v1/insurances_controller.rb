@@ -10,6 +10,16 @@ class Api::V1::InsurancesController < ApplicationController
     end
   end
 
+  def index
+    begin
+      raise 'Bad API key' if find_user == nil
+      insurances = Insurance.where(profile_id: params[:profile_id])
+      render json: InsuranceSerializer.new(insurances)
+    rescue StandardError => err
+      render json:{message: err}, status: 422
+    end
+  end
+
   private
 
   def insurance_params
