@@ -1,4 +1,4 @@
-class Api::V1::ProfileController < ApplicationController
+class Api::V1::ProfilesController < ApplicationController
 
   def index
     profile = Profile.where(user_id: find_user.id)

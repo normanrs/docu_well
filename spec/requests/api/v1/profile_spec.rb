@@ -9,7 +9,7 @@ describe 'the profile endpoint' do
     create(:insurance, profile_id: profile.id)
 
     data = { api_key: user.api_key }
-    get "/api/v1/profile", params: data
+    get "/api/v1/profiles", params: data
 
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)[:data]
@@ -31,7 +31,7 @@ describe 'the profile endpoint' do
     expect(data[0][:attributes][:insurances][0].keys.include?(:id)).to be(true)
   end
 
-  it 'POST /profile creates profile and returns profile content in json' do
+  it 'POST /profiles creates profile and returns profile content in json' do
     provider  = create(:provider)
     user      = create(:user)
     given_name = 'Louisa May'
@@ -49,7 +49,7 @@ describe 'the profile endpoint' do
              heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
              provider_id: provider.id }
 
-    post "/api/v1/profile?api_key=#{user.api_key}", params: data
+    post "/api/v1/profiles?api_key=#{user.api_key}", params: data
 
     expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
@@ -76,7 +76,7 @@ describe 'the profile endpoint' do
     create(:insurance, profile_id: profile.id)
 
     data = { api_key: user.api_key, profile_id: profile.id }
-    delete "/api/v1/profile", params: data
+    delete "/api/v1/profiles", params: data
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to eq("Profile deleted!")
@@ -101,7 +101,7 @@ describe 'the profile endpoint' do
              heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
              provider_id: provider.id }
 
-    post "/api/v1/profile", params: data
+    post "/api/v1/profiles", params: data
 
     expect(response.status).to eq 422
   end
