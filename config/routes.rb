@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
       post   '/users',   to: 'user#create'
       get    '/users',   to: 'user#show'
+
+      post   '/insurances', to: 'insurances#create'
     end
   end
 end
