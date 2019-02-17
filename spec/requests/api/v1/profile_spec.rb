@@ -33,7 +33,7 @@ describe 'the profile endpoint' do
   it 'POST /profile creates profile and returns profile content in json' do
     provider  = create(:provider)
     user      = create(:user)
-    given_name= 'Louisa May'
+    given_name = 'Louisa May'
     surname= 'Alcott'
     dob= "2015-12-08"
     height= 60
@@ -43,11 +43,12 @@ describe 'the profile endpoint' do
     heart_rate= 100
     blood_type= 'o_negative'
 
-    data = { given_name: given_name,
-      surname: surname, dob: dob, height: height, weight: weight, bp_systolic: bp_systolic,
-      bp_diastolic: bp_diastolic, heart_rate: heart_rate, blood_type: blood_type, user_id: user.id, provider_id: provider.id }
+    data = { given_name: given_name, surname: surname, dob: dob, height: height,
+             weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
+             provider_id: provider.id }
 
-    post "/api/v1/profile", params: data
+    post "/api/v1/profile?api_key=#{user.api_key}", params: data
 
     expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
@@ -80,5 +81,27 @@ describe 'the profile endpoint' do
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to eq("Profile deleted!")
+
+  it 'will return error without api key' do
+    provider  = create(:provider)
+    user      = create(:user)
+    given_name = 'Louisa May'
+    surname= 'Alcott'
+    dob= "2015-12-08"
+    height= 60
+    weight= 150
+    bp_systolic= 120
+    bp_diastolic= 80
+    heart_rate= 100
+    blood_type= 'o_negative'
+
+    data = { given_name: given_name, surname: surname, dob: dob, height: height,
+             weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
+             provider_id: provider.id }
+
+    post "/api/v1/profile", params: data
+
+    expect(response.status).to eq 422
   end
 end
