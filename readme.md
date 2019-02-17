@@ -14,62 +14,46 @@ rails s (to spin up the server)
 
 ## 🕹 How to Use
 
-Describe the app's features
+POST https://my-health-tracker.herokuapp.com/api/v1/users    
+params: { email: 'test_user1@email.com', password: '12345' }
 
-The app provides the following endpoints:
+GET  https://my-health-tracker.herokuapp.com/api/v1/users    
+params: { email: 'test_user1@email.com', password: '12345' }
 
-`POST https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+POST  https://my-health-tracker.herokuapp.com/api/v1/providers
+params: {
+  given_name: 'Tom',
+  surname: 'Hanks',
+  street_address: '123 Hollywood Dr',
+  city: 'Hollywood',
+  state: 'CA',
+  zip: '11111',
+  phone: '915-111-2222',
+  api_key: 'RM-ezg2q0x5JqILnP422gQ'
+ }
 
-response:<br/>
-`{"data"=>`<br/>
-  `{"id"=>"4", "type"=>"user", "attributes"=>`<br/>
-  	`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"}`<br/>
-  `}`<br/>
-`}`<br/>
+GET  https://my-health-tracker.herokuapp.com/api/v1/providers
+ NO PARAMS
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+POST  https://my-health-tracker.herokuapp.com/api/v1/profile
+params: {
+  api_key: 'RM-ezg2q0x5JqILnP422gQ',
+  user_id: 1,
+  provider_id: 1,
+  given_name: Angelica,
+  surname: Huston,
+  dob: '1950-01-01',
+  height: 69,
+  weight: 150,
+  bp_systolic: 120,
+  bp_diastolic: 80,
+  heart_rate: 120,
+  blood_type: 'o_positive'
+ }
 
-response:<br/>
-`{"data"=>`
-  `{"id"=>"1", "type"=>"user", "attributes"=>` <br/>
-      `{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"}` <br/>
-  `}`
-`}`
+GET  https://my-health-tracker.herokuapp.com/api/v1/profile
+params: { api_key: 'NfHnzbREj_tWkKmbdxh5Og' }
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '6gZvWv2xWtYpEyLWLZAY-g' }`
-
-response:<br/>
-`{:data=>` <br/>
-  `{:id=>"1", :type=>"profile", :attributes=>` <br/>
-    `{:given_name=>"Ms. Anisa Mohr",
-     :surname=>"Aristotle",
-     :dob=>"1981-02-22",
-     :height=>68,
-     :weight=>16,
-     :bp_systolic=>124,
-     :bp_diastolic=>107,
-     :heart_rate=>147,
-     :blood_type=>"b_negative",
-     :provider=>` <br/>
-      `{:id=>1,
-       :first_name=>"Artemis",
-       :last_name=>"Vision",
-       :street_address=>"150 Kecia Valley",
-       :city=>"Port Tessa",
-       :state=>"KY",
-       :zip=>"82725",
-       :phone=>"1-718-305-2952"}` <br/>
-	  `}`
-  `}`
- `}`
-
-FEATURE
-stuff it needs
-stuff it does
-
-FEATURE
-stuff it needs
-stuff it does
 
 FEATURE
 stuff it needs
