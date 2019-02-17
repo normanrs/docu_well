@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      post   '/profile', to: 'profile#create'
-      get    '/profile', to: 'profile#index'
-      delete '/profile', to: 'profile#delete'
+      post   '/profiles', to: 'profiles#create'
+      get    '/profiles', to: 'profiles#index'
+      delete '/profiles', to: 'profiles#delete'
 
       post   '/providers', to: 'providers#create'
       get    '/providers', to: 'providers#index'
