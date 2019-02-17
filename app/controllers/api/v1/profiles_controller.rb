@@ -29,8 +29,17 @@ class Api::V1::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:given_name, :surname, :height, :weight, :dob,
-      :bp_systolic, :bp_diastolic, :heart_rate, :blood_type, :user_id, :provider_id)
+    params.permit(:given_name,
+                  :surname,
+                  :height,
+                  :weight,
+                  :dob,
+                  :bp_systolic,
+                  :bp_diastolic,
+                  :heart_rate,
+                  :blood_type,
+                  :user_id,
+                  :provider_id)
   end
 
   def find_user
