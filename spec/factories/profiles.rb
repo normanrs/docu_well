@@ -9,7 +9,7 @@ FactoryBot.define do
     bp_diastolic { Faker::Number.between(40, 130) }
     heart_rate { Faker::Number.between(30, 200) }
     blood_type { Faker::Number.between(0, 7) }
-    association :provider, factory: :provider
+    provider_id { 1 }
     association :user, factory: :user
   end
 end
