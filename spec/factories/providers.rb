@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :provider do
-    first_name { Faker::Ancient.god }
-    last_name { Faker::Superhero.name }
+    given_name { Faker::Ancient.god }
+    surname { Faker::Superhero.name }
     street_address { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Number.between(0, 49) }
