@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
   end
 
   create_table "providers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "given_name"
+    t.string "surname"
     t.string "street_address"
     t.string "city"
     t.integer "state", limit: 2
