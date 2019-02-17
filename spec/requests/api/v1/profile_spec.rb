@@ -81,6 +81,7 @@ describe 'the profile endpoint' do
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to eq("Profile deleted!")
+  end
 
   it 'will return error without api key' do
     provider  = create(:provider)
