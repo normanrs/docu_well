@@ -1,16 +1,21 @@
 class Api::V1::ProfileController < ApplicationController
 
   def index
-    user    = User.find_by(api_key: params[:api_key])
-    profile = Profile.where(user_id: user.id)
+    profile = Profile.where(user_id: find_user.id)
     render json: ProfileSerializer.new(profile), status: 200
   end
 
   def create
-    user = User.find_by(api_key: params[:api_key])
-    profile_params[:dob] = Date.parse(params["dob"])
-    profile = Profile.create(profile_params)
-    render json: ProfileSerializer.new(profile), status: 201
+    begin
+      raise 'Bad API key' if find_user == nil
+      attributes = profile_params
+      attributes[:user_id] = find_user.id
+      attributes[:dob] = Date.parse(params["dob"])
+      profile = Profile.create(attributes)
+      render json: ProfileSerializer.new(profile), status: 201
+    rescue StandardError => err
+      render json:{message: err}, status: 422
+    end
   end
 
   def delete
@@ -24,8 +29,11 @@ class Api::V1::ProfileController < ApplicationController
   private
 
   def profile_params
-
     params.permit(:given_name, :surname, :height, :weight, :dob,
       :bp_systolic, :bp_diastolic, :heart_rate, :blood_type, :user_id, :provider_id)
+  end
+
+  def find_user
+    User.find_by(api_key: params[:api_key])
   end
 end
