@@ -58,5 +58,45 @@ describe 'the insurance endpoints' do
     expect(data["message"]).to eq("Bad API key")
   end
 
+  it 'GET /insurances returns all insurance objects in json' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    create(:insurance, profile_id: profile.id)
+    create(:insurance, profile_id: profile.id)
 
+    get "/api/v1/insurances?api_key=#{user.api_key}", params: {profile_id: profile.id}
+
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(data[0][:id]).not_to be_empty
+    expect(data[0][:attributes].keys.include?(:insurance_type)).to be(true)
+    expect(data[0][:attributes].keys.include?(:carrier)).to be(true)
+    expect(data[0][:attributes].keys.include?(:id_number)).to be(true)
+    expect(data[0][:attributes].keys.include?(:group_number)).to be(true)
+    expect(data[0][:attributes].keys.include?(:phone_number)).to be(true)
+    expect(data[0][:attributes].keys.include?(:profile_id)).to be(true)
+    expect(data[1][:id]).not_to be_empty
+    expect(data[1][:attributes].keys.include?(:insurance_type)).to be(true)
+    expect(data[1][:attributes].keys.include?(:carrier)).to be(true)
+    expect(data[1][:attributes].keys.include?(:id_number)).to be(true)
+    expect(data[1][:attributes].keys.include?(:group_number)).to be(true)
+    expect(data[1][:attributes].keys.include?(:phone_number)).to be(true)
+    expect(data[1][:attributes].keys.include?(:profile_id)).to be(true)
+  end
+
+  it 'GET /insurances wont returns insurance objects w/o api key' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    create(:insurance, profile_id: profile.id)
+    create(:insurance, profile_id: profile.id)
+
+    get "/api/v1/insurances", params: {profile_id: profile.id}
+
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Bad API key")
+  end
 end
