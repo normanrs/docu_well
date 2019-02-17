@@ -5,7 +5,7 @@ class Api::V1::ProvidersController < ApplicationController
       new_doc = Provider.create(params_in)
       render json: ProviderSerializer.new(new_doc), status: 201
     rescue StandardError => err
-      render json:{message: err}, status: 422
+      render json:{message: err}, status: 400
     end
   end
 

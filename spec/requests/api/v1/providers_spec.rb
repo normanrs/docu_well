@@ -61,7 +61,7 @@ describe 'the provider endpoint' do
 
     post "/api/v1/providers", params: data
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
   end
 
@@ -80,7 +80,7 @@ describe 'the provider endpoint' do
 
     post "/api/v1/providers", params: data
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
   end
 
