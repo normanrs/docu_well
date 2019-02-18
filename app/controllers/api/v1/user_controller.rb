@@ -13,7 +13,7 @@ class Api::V1::UserController < ApplicationController
     if user && user.authenticate(user_params[:password])
       render json: UserSerializer.new(user)
     else
-      invalid_user
+      render json: { message: 'User Not Found' }, status: 404
     end
   end
 

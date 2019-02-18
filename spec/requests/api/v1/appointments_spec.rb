@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 describe 'the profile endpoint' do
   it 'returns users appointments by profile' do
     provider  = create(:provider)
@@ -27,7 +26,7 @@ describe 'the profile endpoint' do
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
-             datetime: 20.days.from_now,
+             datetime: 1550453488,
              profile_id: profile.id,
              provider_id: provider.id
     }
@@ -41,6 +40,24 @@ describe 'the profile endpoint' do
     expect(data[:attributes].keys.include?(:datetime)).to be(true)
     expect(data[:attributes].keys.include?(:provider_id)).to be(true)
     expect(data[:attributes].keys.include?(:profile_id)).to be(true)
+  end
+
+  it 'POST /appointments doesnt create appointment using bad API key' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    create(:insurance, profile_id: profile.id)
+    data = { api_key: "hahahaha",
+             datetime: 1550453488,
+             profile_id: profile.id,
+             provider_id: provider.id
+    }
+
+    post "/api/v1/appointments", params: data
+
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
   end
 
   it 'deletes an appointment' do
