@@ -22,9 +22,10 @@ class Api::V1::InsurancesController < ApplicationController
 
   def delete
     begin
-      raise 'Bad API key' if find_user == nil
-      insurances = Insurance.where(profile_id: params[:profile_id])
-      render json: InsuranceSerializer.new(insurances)
+      api_key_error
+      insurance = Insurance.find(params[:id])
+      render json: {"message": "Insurance deleted"}
+      binding.pry
     rescue StandardError => err
       render json:{message: err}, status: 422
     end
