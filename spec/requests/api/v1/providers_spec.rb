@@ -28,11 +28,9 @@ describe 'the provider endpoint' do
       city: 'St. Paul',
       state: 'MN',
       zip: '90210',
-      phone: '101-555-1212',
-    }
+      phone: '101-555-1212'}
 
     post "/api/v1/providers", params: data
-
     expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
     expect(data[:id]).not_to be_empty
@@ -46,7 +44,7 @@ describe 'the provider endpoint' do
     expect(data[:attributes].keys.include?(:phone)).to be(true)
   end
 
-  it 'POST /providers returns 422 error on bad data' do
+  it 'POST /providers returns 400 error on missing data' do
     user      = create(:user)
     data = {
       api_key: user.api_key,
@@ -54,18 +52,16 @@ describe 'the provider endpoint' do
       surname: 'Manchot',
       street_address: '2000 Upity Street',
       city: 'St. Paul',
-      state: 'xx',
       zip: '90210',
-      phone: '101-555-1212',
-    }
+      phone: '101-555-1212'}
 
     post "/api/v1/providers", params: data
-
     expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
   end
 
-  it 'POST /providers returns 422 error on bad api key' do
+  it 'POST /providers returns 400 error on bad api key' do
     user      = create(:user)
     data = {
       api_key: "hahahaha",
@@ -75,13 +71,12 @@ describe 'the provider endpoint' do
       city: 'St. Paul',
       state: 'TX',
       zip: '90210',
-      phone: '101-555-1212',
-    }
+      phone: '101-555-1212'}
 
     post "/api/v1/providers", params: data
-
     expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
   end
 
 end

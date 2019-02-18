@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "datetime"
+    t.bigint "datetime"
     t.bigint "provider_id"
     t.bigint "profile_id"
     t.index ["profile_id"], name: "index_appointments_on_profile_id"

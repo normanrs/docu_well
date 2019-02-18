@@ -12,9 +12,10 @@ class Api::V1::ProfilesController < ApplicationController
       attributes[:user_id] = find_user.id
       attributes[:dob] = Date.parse(params["dob"])
       profile = Profile.create(attributes)
+      raise 'Bad data' unless profile.save
       render json: ProfileSerializer.new(profile), status: 201
     rescue StandardError => err
-      render json:{message: err}, status: 422
+      render json:{message: err}, status: 400
     end
   end
 

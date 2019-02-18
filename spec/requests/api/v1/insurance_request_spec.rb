@@ -109,6 +109,7 @@ describe 'the insurance endpoints' do
     get "/api/v1/insurances", params: {profile_id: profile.id}
 
     expect(response.status).to eq 400
+
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
