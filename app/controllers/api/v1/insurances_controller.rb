@@ -20,6 +20,17 @@ class Api::V1::InsurancesController < ApplicationController
     end
   end
 
+  def delete
+    begin
+      raise 'Bad data' unless profile_ids.include?(find_insurance.profile_id)
+      insurance = find_insurance
+      insurance.delete
+      render json: {"message": "Insurance deleted"}
+    rescue StandardError => err
+      render json:{message: err}, status: 400
+    end
+  end
+
   private
 
   def params_in
@@ -39,8 +50,12 @@ class Api::V1::InsurancesController < ApplicationController
     Profile.where(user_id: find_user.id).pluck(:id)
   end
 
+  def find_insurance
+    Insurance.find(params[:insurance_id])
+  end
+
   def api_key_error
     id_in = params[:profile_id].to_i
-    raise 'Bad API key' unless profile_ids.include?(id_in)
+    raise 'Bad data' unless profile_ids.include?(id_in)
   end
 end

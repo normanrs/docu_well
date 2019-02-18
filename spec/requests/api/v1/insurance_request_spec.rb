@@ -68,7 +68,7 @@ describe 'the insurance endpoints' do
 
     expect(response.status).to eq 400
     data = JSON.parse(response.body)
-    expect(data["message"]).to eq("Bad API key")
+    expect(data["message"]).to eq("Bad data")
   end
 
   it 'GET /insurances returns all insurance objects in json' do
@@ -108,6 +108,44 @@ describe 'the insurance endpoints' do
 
     get "/api/v1/insurances", params: {profile_id: profile.id}
 
+    expect(response.status).to eq 400
+
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
+  end
+
+  it 'DELETE /insurances' do
+    provider  = create(:provider)
+    profile   = create(:profile, provider_id: provider.id )
+    insurance = create(:insurance, profile_id: profile.id)
+    api_key   = User.find(profile.user_id).api_key
+
+    delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Insurance deleted")
+  end
+
+  it 'will not DELETE /insurances if insurance,profile,user do not correspond' do
+    provider   = create(:provider)
+    profile    = create(:profile, provider_id: provider.id )
+    profile1   = create(:profile, provider_id: provider.id )
+    insurance  = create(:insurance, profile_id: profile.id)
+    api_key    = User.find(profile1.user_id).api_key
+
+    delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
+    expect(response.status).to eq 400
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Bad data")
+  end
+
+  it 'will not DELETE /insurances if no api key' do
+    provider   = create(:provider)
+    profile    = create(:profile, provider_id: provider.id )
+    profile1   = create(:profile, provider_id: provider.id )
+    insurance  = create(:insurance, profile_id: profile.id)
+
+    delete "/api/v1/insurances", params: {insurance_id: insurance.id}
     expect(response.status).to eq 400
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
       post   '/insurances', to: 'insurances#create'
       get    '/insurances', to: 'insurances#index'
+      delete '/insurances', to: 'insurances#delete'
     end
   end
 end
