@@ -113,15 +113,40 @@ describe 'the insurance endpoints' do
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
 
-  it 'DELETE /insurances/:id' do
+  it 'DELETE /insurances' do
     provider  = create(:provider)
-    user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, provider_id: provider.id )
     insurance = create(:insurance, profile_id: profile.id)
+    api_key   = User.find(profile.user_id).api_key
 
-    delete "/api/v1/insurances/#{insurance.id}?api_key=#{user.api_key}"
-
+    delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
     expect(response.status).to eq 200
-    data = JSON.parse(response.body, symbolize_names: true)[:data]
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Insurance deleted")
+  end
+
+  it 'will not DELETE /insurances if insurance,profile,user do not correspond' do
+    provider   = create(:provider)
+    profile    = create(:profile, provider_id: provider.id )
+    profile1   = create(:profile, provider_id: provider.id )
+    insurance  = create(:insurance, profile_id: profile.id)
+    api_key    = User.find(profile1.user_id).api_key
+
+    delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Cannot delete this insurance")
+  end
+
+  it 'will not DELETE /insurances if no api key' do
+    provider   = create(:provider)
+    profile    = create(:profile, provider_id: provider.id )
+    profile1   = create(:profile, provider_id: provider.id )
+    insurance  = create(:insurance, profile_id: profile.id)
+
+    delete "/api/v1/insurances", params: {insurance_id: insurance.id}
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
 end
