@@ -55,6 +55,19 @@ describe 'the insurance endpoints' do
 
     expect(response.status).to eq 422
     data = JSON.parse(response.body)
+    expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
+  end
+
+  it 'POST /insurances wont create insurance if user and profile dont correspond' do
+    provider   = create(:provider)
+    user       = create(:user)
+    user1      = create(:user)
+    profile    = create(:profile, user_id: user.id, provider_id: provider.id )
+
+    post "/api/v1/insurances?api_key=#{user1.api_key}", params: {profile_id: profile.id}
+
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body)
     expect(data["message"]).to eq("Bad API key")
   end
 
@@ -98,20 +111,5 @@ describe 'the insurance endpoints' do
     expect(response.status).to eq 422
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
-  end
-
-  it 'GET /insurances wont return insurance if user and profile dont correspond' do
-    provider   = create(:provider)
-    user       = create(:user)
-    user1      = create(:user)
-    profile    = create(:profile, user_id: user.id, provider_id: provider.id )
-    create(:insurance, profile_id: profile.id)
-    create(:insurance, profile_id: profile.id)
-
-    get "/api/v1/insurances?api_key=#{user1.api_key}", params: {profile_id: profile.id}
-
-    expect(response.status).to eq 422
-    data = JSON.parse(response.body)
-    expect(data["message"]).to eq("Bad API key")
   end
 end
