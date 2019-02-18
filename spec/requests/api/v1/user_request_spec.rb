@@ -10,6 +10,16 @@ RSpec.describe 'POST /users' do
     expect(key).to eq(User.last.api_key)
   end
 
+  it 'doesnt create a user with same email as another user' do
+    user      = create(:user)
+
+    data = { email: user.email, password: '12345' }
+    post "/api/v1/users", params: data
+    expect(response.status).to eq(400)
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
+  end
+
   it 'returns api key for existing user' do
     user = create(:user)
 

@@ -53,7 +53,7 @@ describe 'the insurance endpoints' do
 
     post "/api/v1/insurances", params: data
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
@@ -66,7 +66,7 @@ describe 'the insurance endpoints' do
 
     post "/api/v1/insurances?api_key=#{user1.api_key}", params: {profile_id: profile.id}
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("Bad API key")
   end
@@ -108,7 +108,7 @@ describe 'the insurance endpoints' do
 
     get "/api/v1/insurances", params: {profile_id: profile.id}
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
