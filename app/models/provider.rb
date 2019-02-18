@@ -1,5 +1,7 @@
 class Provider < ApplicationRecord
   has_many :appointments
+  validates_presence_of :surname, :street_address, :city, :state, :phone, on: :create
+
 
   enum state: [:AK,:AL,:AR,:AZ,:CA,:CO,:CT,:DE,:FL,:GA,:HI,:IA,:ID,:IL,:IN,:KS,:KY,:LA,
                :MA,:MD,:ME,:MI,:MN,:MO,:MS,:MT,:NC,:ND,:NE,:NH,:NJ,:NM,:NV,:NY,:OH,:OK,

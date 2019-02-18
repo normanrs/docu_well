@@ -3,6 +3,7 @@ class Api::V1::ProvidersController < ApplicationController
     begin
       raise "Bad API key" if find_user == nil
       new_doc = Provider.create(params_in)
+      raise 'Bad data' unless new_doc.save
       render json: ProviderSerializer.new(new_doc), status: 201
     rescue StandardError => err
       render json:{message: err}, status: 400

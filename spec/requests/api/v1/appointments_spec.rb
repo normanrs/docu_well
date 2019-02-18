@@ -55,7 +55,24 @@ describe 'the profile endpoint' do
 
     post "/api/v1/appointments", params: data
 
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
+  end
+
+  it 'POST /appointments doesnt create appointment without required info' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    create(:insurance, profile_id: profile.id)
+    data = { api_key: user.api_key,
+             profile_id: profile.id,
+             provider_id: provider.id
+    }
+
+    post "/api/v1/appointments", params: data
+
+    expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).not_to be_empty
   end
@@ -83,7 +100,7 @@ describe 'the profile endpoint' do
 
     data = { api_key: 'hahahaha', profile_id: profile.id, appointment_id: appt.id }
     delete "/api/v1/appointments", params: data
-    expect(response.status).to eq 422
+    expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).not_to be_empty
   end

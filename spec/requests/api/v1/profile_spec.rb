@@ -10,7 +10,6 @@ describe 'the profile endpoint' do
 
     data = { api_key: user.api_key }
     get "/api/v1/profiles", params: data
-
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)[:data]
     expect(data[0][:id]).not_to be_empty
@@ -31,7 +30,7 @@ describe 'the profile endpoint' do
     expect(data[0][:attributes][:insurances][0].keys.include?(:id)).to be(true)
   end
 
-  it 'POST /profiles creates profile and returns profile content in json' do
+  it 'POST /profiles creates profile and returns profile content' do
     provider  = create(:provider)
     user      = create(:user)
     given_name = 'Louisa May'
@@ -50,7 +49,6 @@ describe 'the profile endpoint' do
              provider_id: provider.id }
 
     post "/api/v1/profiles?api_key=#{user.api_key}", params: data
-
     expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
     expect(data[:id]).not_to be_empty
@@ -66,21 +64,6 @@ describe 'the profile endpoint' do
     expect(data[:attributes].keys.include?(:blood_type)).to be(true)
     expect(data[:attributes].keys.include?(:provider)).to be(true)
     expect(data[:attributes][:provider][:id]).to eq(provider.id)
-  end
-
-  it 'deletes profile' do
-    provider  = create(:provider)
-    user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
-    create(:insurance, profile_id: profile.id)
-    create(:insurance, profile_id: profile.id)
-
-    data = { api_key: user.api_key, profile_id: profile.id }
-    delete "/api/v1/profiles", params: data
-    expect(response.status).to eq 200
-    data = JSON.parse(response.body, symbolize_names: true)
-    expect(data[:message]).to eq("Profile deleted!")
-
   end
 
   it 'will return error without api key' do
@@ -102,7 +85,48 @@ describe 'the profile endpoint' do
              provider_id: provider.id }
 
     post "/api/v1/profiles", params: data
+    expect(response.status).to eq 400
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
 
-    expect(response.status).to eq 422
   end
+
+  it 'will return error without required info' do
+    provider  = create(:provider)
+    user      = create(:user)
+    given_name = 'Louisa May'
+    surname= 'Alcott'
+    height= 60
+    weight= 150
+    bp_systolic= 120
+    bp_diastolic= 80
+    heart_rate= 100
+    blood_type= 'o_negative'
+
+    data = { given_name: given_name, surname: surname, height: height,
+             weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
+             provider_id: provider.id }
+
+    post "/api/v1/profiles?api_key=#{user.api_key}", params: data
+    expect(response.status).to eq 400
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
+
+  end
+
+  it 'deletes profile' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    create(:insurance, profile_id: profile.id)
+    create(:insurance, profile_id: profile.id)
+
+    data = { api_key: user.api_key, profile_id: profile.id }
+    delete "/api/v1/profiles", params: data
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).to eq("Profile deleted!")
+  end
+
 end
