@@ -112,4 +112,16 @@ describe 'the insurance endpoints' do
     data = JSON.parse(response.body)
     expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
   end
+
+  it 'DELETE /insurances/:id' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    insurance = create(:insurance, profile_id: profile.id)
+
+    delete "/api/v1/insurances/#{insurance.id}?api_key=#{user.api_key}"
+
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body, symbolize_names: true)[:data]
+  end
 end
