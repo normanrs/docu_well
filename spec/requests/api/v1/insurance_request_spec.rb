@@ -86,7 +86,7 @@ describe 'the insurance endpoints' do
     expect(data[1][:attributes].keys.include?(:profile_id)).to be(true)
   end
 
-  it 'GET /insurances wont returns insurance objects w/o api key' do
+  it 'GET /insurances wont return insurance objects w/o api key' do
     provider  = create(:provider)
     user      = create(:user)
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
@@ -94,6 +94,21 @@ describe 'the insurance endpoints' do
     create(:insurance, profile_id: profile.id)
 
     get "/api/v1/insurances", params: {profile_id: profile.id}
+
+    expect(response.status).to eq 422
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("undefined method `id' for nil:NilClass")
+  end
+
+  it 'GET /insurances wont return insurance if user and profile dont correspond' do
+    provider   = create(:provider)
+    user       = create(:user)
+    user1      = create(:user)
+    profile    = create(:profile, user_id: user.id, provider_id: provider.id )
+    create(:insurance, profile_id: profile.id)
+    create(:insurance, profile_id: profile.id)
+
+    get "/api/v1/insurances?api_key=#{user1.api_key}", params: {profile_id: profile.id}
 
     expect(response.status).to eq 422
     data = JSON.parse(response.body)
