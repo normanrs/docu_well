@@ -13,6 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 coverage
+/spec/cassettes
 
 # Ignore uploaded files in development
 /storage/*
@@ -22,3 +23,5 @@ coverage
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/application.yml
