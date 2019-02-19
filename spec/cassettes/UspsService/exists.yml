@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://production.shippingapis.com/ShippingAPITest.dll?API=Verify&XML=%3CAddressValidateRequest+USERID%3D%27160MR0005918%27%3E%3CAddressID%3D%270%27%3E%3CAddress1%3E%3C%2FAddress1%3E%3CAddress2%3E6406+Ivy+Lane%3C%2FAddress2%3E%3CCity%3EGreenbelt%3C%2FCity%3E%3CState%3EMD%3C%2FState%3E%3CZip5%3E%3C%2FZip5%3E%3CZip4%3E%3C%2FZip4%3E%3C%2FAddress%3E%3C%2FAddressValidateRequest%3E
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-backside-transport:
+      - OK OK
+      user-agent:
+      - Faraday v0.15.4
+      host:
+      - 127.0.0.1:2048
+      client-ip:
+      - 73.95.254.218
+      via:
+      - 1.1 ApplicationError_XML_Firewall
+      x-client-ip:
+      - 56.0.70.6,56.0.70.6
+      x-global-transaction-id:
+      - cdcc55655c6b534b1276c891
+      content-type:
+      - text/xml
+      ns-client-ip:
+      - 73.95.254.218
+      x-archived-client-ip:
+      - 56.0.70.6
+      date:
+      - Tue, 19 Feb 2019 00:52:27 GMT
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - Keep-Alive
+      ntcoent-length:
+      - '215'
+      x-frame-options:
+      - SAMEORIGIN
+      content-length:
+      - '190'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Error><Number>80040B19</Number><Description>XML Syntax Error: Please check the XML request to see if it can be parsed.(B)</Description><Source>USPSCOM::DoAuth</Source></Error>
+    http_version: 
+  recorded_at: Tue, 19 Feb 2019 00:52:22 GMT
+recorded_with: VCR 4.0.0
