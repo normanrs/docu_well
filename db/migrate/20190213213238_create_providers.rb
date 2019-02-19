@@ -8,6 +8,7 @@ class CreateProviders < ActiveRecord::Migration[5.2]
       t.integer :state, :limit => 1
       t.string  :zip
       t.string  :phone
+      t.integer :speciality
     end
   end
 end

@@ -7,5 +7,6 @@ FactoryBot.define do
     state { Faker::Number.between(0, 49) }
     zip { Faker::Address.zip }
     phone { Faker::PhoneNumber.cell_phone }
+    speciality { Faker::Number.between(0, 30) }
   end
 end
