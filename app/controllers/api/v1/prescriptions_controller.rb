@@ -20,9 +20,15 @@ class Api::V1::PrescriptionsController < ApplicationController
   def delete
     begin
       id_in = params[:profile_id].to_i
+<<<<<<< HEAD
       script_in = params_in[:prescription_id].to_i
       raise 'Bad API key' unless profile_ids.include?(id_in)
       Prescription.destroy(script_in)
+=======
+      appt_in = params_in[:prescription_id].to_i
+      raise 'Bad API key' unless profile_ids.include?(id_in)
+      Prescription.destroy(appt_in)
+>>>>>>> Working ups api post
       render json:{message:'Prescription deleted!'}, status: 200
     rescue StandardError => err
       render json:{message: err}, status: 400
@@ -32,7 +38,11 @@ class Api::V1::PrescriptionsController < ApplicationController
   private
 
   def params_in
+<<<<<<< HEAD
     params.permit(:profile_id, :provider_id, :prescription_id, :name, :date, :dose, :dose_units, :directions, :refill)
+=======
+    params.permit(:profile_id, :datetime, :provider_id, :prescription_id)
+>>>>>>> Working ups api post
   end
 
   def find_user
