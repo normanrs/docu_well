@@ -17,13 +17,18 @@ class UpsService
                 }
   end
 
-
   def valid_address
-    response = conn.post do |stuff|
-      stuff.url "/rest/XAV"
-      stuff.body = @json_request.to_json
+    begin
+      response = conn.post do |stuff|
+        stuff.url "/rest/XAV"
+        stuff.body = @json_request.to_json
+      end
+      @parsed ||= JSON.parse(response.body, symbolize_names: true)
+      raise 'Bad request' if @parsed[:XAVResponse][:NoCandidatesIndicator]
+    rescue StandardError => err
+      @parsed = JSON.parse({ :message => err.to_s}.to_json, symbolize_names: true)
     end
-    @parsed ||= JSON.parse(response.body, symbolize_names: true)
+    @parsed
   end
 
 private
