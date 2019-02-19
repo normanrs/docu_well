@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
     t.integer "state", limit: 2
     t.string "zip"
     t.string "phone"
+    t.integer "speciality"
   end
 
   create_table "tests", force: :cascade do |t|
