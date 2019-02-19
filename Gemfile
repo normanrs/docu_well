@@ -9,8 +9,6 @@ gem 'puma', '~> 3.11'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'faraday'
-gem 'faraday_middleware'
-gem 'multi_xml'
 gem 'fast_jsonapi'
 gem 'bcrypt'
 gem 'rack-cors', require: 'rack/cors'
