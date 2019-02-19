@@ -1,4 +1,7 @@
 class Prescription < ApplicationRecord
+  belongs_to :profile
+  belongs_to :provider
+  validates_presence_of :name, :dose, :dose_units, on: :create
 
   enum dose_units: [
         "%",

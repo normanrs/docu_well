@@ -33,16 +33,15 @@ describe 'the prescriptions endpoint' do
              name: 'Selexipro',
              date: 1550453488,
              dose: 12,
-             dose_units: 6,
+             dose_units: 'capsule',
              directions: "Taken topically or subtropically",
              refill: true,
-
     }
 
     post "/api/v1/prescriptions", params: data
 
-    expect(response.status).to eq 201
     data = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(response.status).to eq 201
     expect(data[:id]).not_to be_empty
     expect(data[:attributes]).not_to be_empty
     expect(data[:attributes].keys.include?(:name)).to be(true)
@@ -53,15 +52,20 @@ describe 'the prescriptions endpoint' do
     expect(data[:attributes].keys.include?(:provider)).to be(true)
   end
 
-  xit 'POST /prescriptions doesnt create prescription using bad API key' do
+  it 'POST /prescriptions doesnt create prescription using bad API key' do
     provider  = create(:provider)
     user      = create(:user)
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
-    data = { api_key: "hahahaha",
-             datetime: 1550453488,
+    data = { api_key: 'hahahahaha',
              profile_id: profile.id,
-             provider_id: provider.id
+             provider_id: provider.id,
+             name: 'Selexipro',
+             date: 1550453488,
+             dose: 12,
+             dose_units: 'capsule',
+             directions: "Taken topically or subtropically",
+             refill: true,
     }
 
     post "/api/v1/prescriptions", params: data
@@ -71,14 +75,19 @@ describe 'the prescriptions endpoint' do
     expect(data[:message]).not_to be_empty
   end
 
-  xit 'POST /prescriptions doesnt create prescription without required info' do
+  it 'POST /prescriptions doesnt create prescription without required info' do
     provider  = create(:provider)
     user      = create(:user)
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
              profile_id: profile.id,
-             provider_id: provider.id
+             provider_id: provider.id,
+             name: 'Selexipro',
+             date: 1550453488,
+             dose_units: 'capsule',
+             directions: "Taken topically or subtropically",
+             refill: true,
     }
 
     post "/api/v1/prescriptions", params: data
@@ -88,28 +97,28 @@ describe 'the prescriptions endpoint' do
     expect(data[:message]).not_to be_empty
   end
 
-  xit 'deletes an prescription' do
+  it 'deletes an prescription' do
     provider  = create(:provider)
     user      = create(:user)
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
-    appt = create(:prescription, profile_id: profile.id)
+    script = create(:prescription, profile_id: profile.id)
 
-    data = { api_key: user.api_key, profile_id: profile.id, appointment_id: appt.id }
+    data = { api_key: user.api_key, profile_id: profile.id, prescription_id: script.id }
     delete "/api/v1/prescriptions", params: data
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)
-    expect(data[:message]).to eq("Appointment deleted!")
+    expect(data[:message]).to eq("Prescription deleted!")
   end
 
-  xit 'does not delete an appointment with bad api key' do
+  it 'does not delete an prescription with bad api key' do
     provider  = create(:provider)
     user      = create(:user)
     profile   = create(:profile, user_id: user.id, provider_id: provider.id )
     create(:insurance, profile_id: profile.id)
-    appt = create(:appointment, profile_id: profile.id)
+    script = create(:prescription, profile_id: profile.id)
 
-    data = { api_key: 'hahahaha', profile_id: profile.id, appointment_id: appt.id }
+    data = { api_key: 'hahahahaha', profile_id: profile.id, prescription_id: script.id }
     delete "/api/v1/prescriptions", params: data
     expect(response.status).to eq 400
     data = JSON.parse(response.body, symbolize_names: true)
