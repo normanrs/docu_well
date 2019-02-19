@@ -5,6 +5,10 @@ Rails.application.routes.draw do
       get    '/appointments', to: 'appointments#index'
       delete '/appointments', to: 'appointments#delete'
 
+      post   '/prescriptions', to: 'prescriptions#create'
+      get    '/prescriptions', to: 'prescriptions#index'
+      delete '/prescriptions', to: 'prescriptions#delete'
+
       post   '/profiles', to: 'profiles#create'
       get    '/profiles', to: 'profiles#index'
       delete '/profiles', to: 'profiles#delete'
