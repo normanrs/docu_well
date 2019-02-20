@@ -24,12 +24,11 @@ describe 'the provider endpoint' do
       api_key: user.api_key,
       given_name: 'Chelsea',
       surname: 'Manchot',
-      street_address: '2000 Upity Street',
-      city: 'St. Paul',
-      state: 'MN',
-      zip: '90210',
-      phone: '101-555-1212',
-      speciality: 'neurologist'}
+      street_address: '2258 W 35th Ave',
+      city: 'Denver',
+      state: 'CO',
+      zip: '80211',
+      phone: '101-555-1212'}
 
     post "/api/v1/providers", params: data
     expect(response.status).to eq 201

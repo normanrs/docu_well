@@ -1,5 +1,7 @@
 class UpsService
 
+  attr_reader :result
+
   def initialize(data)
     @json_request = {
       "UPSSecurity": {
@@ -12,9 +14,10 @@ class UpsService
                 "RequestOption": "1", "TransactionReference": {
                   "CustomerContext": "My Health Tracker" }
                 },
-                "MaximumListSize": "1", "AddressKeyFormat": { "AddressLine": "#{data[:street_address]}", "PoliticalDivision2": "#{data[:city]}", "PoliticalDivision1": "#{data[:state]}", "PostcodePrimaryLow": "", "CountryCode": "US"
+                "MaximumListSize": "1", "AddressKeyFormat": { "AddressLine": "#{data[:street_address]}", "PoliticalDivision2": "#{data[:city]}", "PoliticalDivision1": "#{data[:state]}", "PostcodePrimaryLow": "#{data[:zip]}", "CountryCode": "US"
                   } }
-                }
+    }
+    @result = valid_address
   end
 
   def valid_address

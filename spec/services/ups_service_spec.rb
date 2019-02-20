@@ -9,7 +9,7 @@ describe UpsService do
 
 			service = UpsService.new(address)
 			expect(service).to be_a(UpsService)
-			actual = service.valid_address[:XAVResponse][:Candidate][:AddressKeyFormat]
+			actual = service.result[:XAVResponse][:Candidate][:AddressKeyFormat]
 			expect(actual[:AddressLine]).not_to be_empty
 			expect(actual[:PoliticalDivision2]).not_to be_empty
 			expect(actual[:PoliticalDivision1]).not_to be_empty
@@ -27,8 +27,8 @@ describe UpsService do
 
 			service = UpsService.new(address)
 			expect(service).to be_a(UpsService)
-			actual = service.valid_address
-			expect(actual).not_to be_empty
+			actual = service.result
+			expect(actual[:message]).to eq("Bad request")
 		end
   end
 
