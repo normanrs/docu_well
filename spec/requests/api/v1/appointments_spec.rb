@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'the profile endpoint' do
+describe 'the appointments endpoint' do
   it 'returns users appointments by profile' do
     provider  = create(:provider)
     user      = create(:user)

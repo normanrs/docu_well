@@ -35,11 +35,14 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
 
   create_table "prescriptions", force: :cascade do |t|
     t.string "name"
-    t.date "day"
-    t.string "dose"
+    t.bigint "date"
+    t.integer "dose"
+    t.string "dose_units"
     t.string "directions"
     t.boolean "refill"
+    t.bigint "profile_id"
     t.bigint "provider_id"
+    t.index ["profile_id"], name: "index_prescriptions_on_profile_id"
     t.index ["provider_id"], name: "index_prescriptions_on_provider_id"
   end
 
@@ -88,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
   add_foreign_key "appointments", "profiles"
   add_foreign_key "appointments", "providers"
   add_foreign_key "insurances", "profiles"
+  add_foreign_key "prescriptions", "profiles"
   add_foreign_key "prescriptions", "providers"
   add_foreign_key "profiles", "providers"
   add_foreign_key "profiles", "users"
