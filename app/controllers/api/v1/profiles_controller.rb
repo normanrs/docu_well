@@ -27,6 +27,17 @@ class Api::V1::ProfilesController < ApplicationController
     render json:{message:'Profile deleted!'}, status: 200
   end
 
+  def update
+    begin
+      raise "Bad API key" if find_user == nil
+    profile = Profile.find(params[:profile_id])
+    profile.update(profile_params)
+    render json: ProfileSerializer.new(profile), status: 200
+    rescue StandardError => err
+      render json:{message: err}, status: 400
+    end
+  end
+
   private
 
   def profile_params

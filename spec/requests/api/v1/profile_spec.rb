@@ -129,4 +129,36 @@ describe 'the profile endpoint' do
     expect(data[:message]).to eq("Profile deleted!")
   end
 
+  it 'PATCH /profiles edits a profile and returns profile content' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    given_name = 'Louisa May'
+    surname= 'Alcott'
+
+    data = { profile_id: profile.id, given_name: given_name, surname: surname }
+
+    patch "/api/v1/profiles?api_key=#{user.api_key}", params: data
+    expect(response.status).to eq 200
+    data = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(data[:id].to_i).to eq(profile.id)
+    expect(data[:attributes][:given_name]).to eq(given_name)
+    expect(data[:attributes][:surname]).to eq(surname)
+  end
+
+  it 'PATCH /profiles does not edit profile w/o api key' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    given_name = 'Louisa May'
+    surname= 'Alcott'
+
+    data = { profile_id: profile.id, given_name: given_name, surname: surname }
+
+    patch "/api/v1/profiles", params: data
+    expect(response.status).to eq 400
+    message = JSON.parse(response.body)["message"]
+    expect(message).to eq("Bad API key")
+  end
 end

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post   '/profiles', to: 'profiles#create'
       get    '/profiles', to: 'profiles#index'
       delete '/profiles', to: 'profiles#delete'
+      patch  '/profiles', to: 'profiles#update'
 
       post   '/providers', to: 'providers#create'
       get    '/providers', to: 'providers#index'
