@@ -30,4 +30,13 @@ RSpec.describe 'POST /users' do
 
     expect(key).to eq(User.last.api_key)
   end
+
+  it 'doesnt return api key with wrong password' do
+    user = create(:user)
+
+    get "/api/v1/users?email=#{user.email}&password='hahahaha'"
+    expect(response.status).to eq(404)
+    actual = JSON.parse(response.body)
+    expect(actual["message"]).to_not be_empty
+  end
 end

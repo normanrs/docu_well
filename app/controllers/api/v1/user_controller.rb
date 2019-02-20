@@ -13,11 +13,12 @@ class Api::V1::UserController < ApplicationController
   end
 
   def show
-    user = User.find_by(email: user_params[:email])
-    if user && user.authenticate(user_params[:password])
+    begin
+      user = User.find_by(email: user_params[:email])
+      raise 'Bad login' unless user && user.authenticate(user_params[:password])
       render json: UserSerializer.new(user)
-    else
-      render json: { message: 'User Not Found' }, status: 404
+    rescue StandardError => err
+      render json: { message: err }, status: 404
     end
   end
 
