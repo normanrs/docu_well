@@ -2,7 +2,8 @@ class Api::V1::ProvidersController < ApplicationController
   def create
     begin
       raise "Bad API key" if find_user == nil
-      new_doc = Provider.create(params_in)
+      service = UpsService.new(params_in)
+      new_doc = Provider.create(params_result(service.result))
       raise 'Bad data' unless new_doc.save
       render json: ProviderSerializer.new(new_doc), status: 201
     rescue StandardError => err
@@ -16,6 +17,20 @@ class Api::V1::ProvidersController < ApplicationController
   end
 
   private
+
+  def params_result(result)
+    if result[:message]
+      output = nil
+    else
+      data = result[:XAVResponse][:Candidate][:AddressKeyFormat]
+      output = params_in
+      output["street_address"] = data[:AddressLine]
+      output["city"] = data[:PoliticalDivision2]
+      output["state"] = data[:PoliticalDivision1]
+      output["zip"] = "#{data[:PostcodePrimaryLow]}-#{data[:PostcodeExtendedLow]}"
+    end
+    output
+  end
 
   def params_in
     params.permit(:given_name, :surname, :street_address, :city, :state, :zip, :phone, :speciality)
