@@ -6,5 +6,6 @@ class ProviderSerializer
              :city,
              :state,
              :zip,
-             :phone
+             :phone,
+             :speciality
 end

@@ -28,7 +28,8 @@ describe 'the provider endpoint' do
       city: 'St. Paul',
       state: 'MN',
       zip: '90210',
-      phone: '101-555-1212'}
+      phone: '101-555-1212',
+      speciality: 'neurologist'}
 
     post "/api/v1/providers", params: data
     expect(response.status).to eq 201
@@ -42,6 +43,7 @@ describe 'the provider endpoint' do
     expect(data[:attributes].keys.include?(:state)).to be(true)
     expect(data[:attributes].keys.include?(:zip)).to be(true)
     expect(data[:attributes].keys.include?(:phone)).to be(true)
+    expect(data[:attributes].keys.include?(:speciality)).to be(true)
   end
 
   it 'POST /providers returns 400 error on missing data' do
