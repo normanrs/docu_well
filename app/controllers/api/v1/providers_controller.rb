@@ -18,7 +18,7 @@ class Api::V1::ProvidersController < ApplicationController
   private
 
   def params_in
-    params.permit(:given_name, :surname, :street_address, :city, :state, :zip, :phone)
+    params.permit(:given_name, :surname, :street_address, :city, :state, :zip, :phone, :speciality)
   end
 
   def find_user
