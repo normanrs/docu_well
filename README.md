@@ -1,14 +1,14 @@
 # 📱 DocUWell
 
 ## Project Objective
-This project was created for the 4th module of the backend program at Turing School of Software & Design. This app uses TDD and Ruby on Rails to create API endpoints for a frontend app "DocUWell" to use. The frontend app in production can be found at  <https://herokuapp.com>. The app was designed to take in and store a user's medical data i.e their appointments, providers, insurance information and prescriptions. 
+This project was created for the 4th module of the backend program at Turing School of Software & Design. This app uses TDD and Ruby on Rails to create API endpoints for a frontend app "DocUWell" to use. The frontend app in production can be found at  <https://myhealthnavigator.herokuapp.com/>. The app was designed to take in and store a user's medical data i.e their appointments, providers, insurance information and prescriptions. 
 
 ## ⚙️ Initial Setup
 ### Running the code locally
 1. clone the git repository
 2. run `rails s` and visit `localhost:3000/api/v1` to begin interacting with API endpoints
 
-### Production url 
+### Backend Production url 
 
 `https://my-health-tracker.herokuapp.com/api/v1`
 
