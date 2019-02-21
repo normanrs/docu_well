@@ -50,8 +50,7 @@ class Api::V1::ProfilesController < ApplicationController
                   :bp_diastolic,
                   :heart_rate,
                   :blood_type,
-                  :user_id,
-                  :provider_id)
+                  :user_id)
   end
 
   def find_user

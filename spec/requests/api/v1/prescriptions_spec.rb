@@ -3,7 +3,7 @@ describe 'the prescriptions endpoint' do
   it 'returns prescriptions by profile' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    profile   = create(:profile, user_id: user.id)
     create(:prescription, profile_id: profile.id, provider_id: provider.id)
     create(:prescription, profile_id: profile.id, provider_id: provider.id)
 
@@ -25,7 +25,7 @@ describe 'the prescriptions endpoint' do
   it 'POST /prescriptions creates prescription and returns prescription content in json' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id )
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
              profile_id: profile.id,
@@ -55,7 +55,7 @@ describe 'the prescriptions endpoint' do
   it 'POST /prescriptions doesnt create prescription using bad API key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     data = { api_key: 'hahahahaha',
              profile_id: profile.id,
@@ -78,7 +78,7 @@ describe 'the prescriptions endpoint' do
   it 'POST /prescriptions doesnt create prescription without required info' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
              profile_id: profile.id,
@@ -100,7 +100,7 @@ describe 'the prescriptions endpoint' do
   it 'deletes an prescription' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     script = create(:prescription, profile_id: profile.id)
 
@@ -114,7 +114,7 @@ describe 'the prescriptions endpoint' do
   it 'does not delete an prescription with bad api key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     script = create(:prescription, profile_id: profile.id)
 

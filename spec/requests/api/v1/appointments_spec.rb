@@ -3,7 +3,7 @@ describe 'the appointments endpoint' do
   it 'returns users appointments by profile' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     create(:appointment, profile_id: profile.id)
     create(:appointment, profile_id: profile.id)
@@ -23,7 +23,7 @@ describe 'the appointments endpoint' do
   it 'POST /appointments creates appointment and returns appointment content in json' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
              datetime: 1550453488,
@@ -45,7 +45,7 @@ describe 'the appointments endpoint' do
   it 'POST /appointments doesnt create appointment using bad API key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     data = { api_key: "hahahaha",
              datetime: 1550453488,
@@ -63,7 +63,7 @@ describe 'the appointments endpoint' do
   it 'POST /appointments doesnt create appointment without required info' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     data = { api_key: user.api_key,
              profile_id: profile.id,
@@ -80,7 +80,7 @@ describe 'the appointments endpoint' do
   it 'deletes an appointment' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     appt = create(:appointment, profile_id: profile.id)
 
@@ -94,7 +94,7 @@ describe 'the appointments endpoint' do
   it 'does not delete an appointment with bad api key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     appt = create(:appointment, profile_id: profile.id)
 
