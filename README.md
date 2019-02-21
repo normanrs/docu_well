@@ -23,7 +23,7 @@ This project was created for the 4th module of the backend program at Turing Sch
  `email=[string]`
  `password=[string]`
  * DATA RESPONSE: <br>
-
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/1%20POST%20:users.png)
 
 ##### Retrieve a User's API key
  * URI: <br>
@@ -33,8 +33,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  * DATA PARAMS: <br>
  `email=[string]`
  `password=[string]`
- * DATA RESPONSE:
-
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/2%20GET%20:users.png)
 
 ##### Create a Provider
  * URI: <br>
@@ -57,7 +57,8 @@ This project was created for the 4th module of the backend program at Turing Sch
   naturopath, nephrologist, neurologist, obstetrician, oncologist, ophthalmologist,
   optometrist, osteopath, palliative, pediatrician, podiatrist, psychiatrist,
   pulmonologist, radiologist, rheumatologist, surgeon, urologist`
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/3%20POST%20:providers.png)
 
 ##### Retrieve all Providers
  * URI: <br>
@@ -66,7 +67,8 @@ This project was created for the 4th module of the backend program at Turing Sch
   `GET`
  * DATA PARAMS: <br>
  none
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/4%20GET%20:providers.png)
 
 ##### Create a Profile for User
  * URI: <br>
@@ -86,7 +88,9 @@ This project was created for the 4th module of the backend program at Turing Sch
  `heart_rate=[integer]`
  `blood_type=[enum]` <br>
  `enum = o_negative, o_positive, a_negative, a_positive, b_negative, b_positive, ab_negative, ab_positive`
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/5%20POST%20:profiles.png)
+
 
 ##### Retrieve a Profile
  * URI: <br>
@@ -95,7 +99,9 @@ This project was created for the 4th module of the backend program at Turing Sch
   `GET`
  * DATA PARAMS: <br>
  `api_key=[string]`
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/6%20GET%20:profiles.png)
+
 
 ##### Edit a Profile
  * URI: <br>
@@ -106,7 +112,9 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `profile_id=[integer]`
  the profile param to be modified
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/7%20PATCH%20:profiles.png)
+
 
 ##### Create an Insurance
  * URI: <br>
@@ -123,7 +131,9 @@ This project was created for the 4th module of the backend program at Turing Sch
  `insurance_type=[enum]` <br>
  `enum = medical, dental, vision, supplemental`
  
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/8%20POST%20:insurances.png)
+
 
 ##### Retrieve an Insurance
  * URI: <br>
@@ -134,7 +144,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `profile_id=[integer]`
  
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/9%20GET%20:insurances.png)
 
 ##### Delete an Insurance
  * URI: <br>
@@ -145,7 +156,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `insurance_id=[integer]`
  
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/9.1%20DELETE%20:insurances.png)
 
 ##### Create an Appointment
  * URI: <br>
@@ -157,7 +169,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `profile_id=[integer]`
  `provider_id=[integer]`
  `datetime=[unix]`
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/10%20POST%20:appointments.png)
 
 ##### Retrieve an Appointment
  * URI: <br>
@@ -168,7 +181,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `profile_id=[integer]`
  
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/11%20GET%20:appointments.png)
 
 ##### Delete an Appointment
  * URI: <br>
@@ -179,7 +193,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `profile_id=[integer]`
  `appointment_id=[integer]`
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/12%20DELETE%20:appointments.png)
 
 ##### Create a Prescription
  * URI: <br>
@@ -196,7 +211,9 @@ This project was created for the 4th module of the backend program at Turing Sch
  `refill=[boolean]`
  `dose_units=[enum]`<br>
 
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/13%20POST%20:prescriptions.png)
+
 
 ##### Retrieve a Prescription
  * URI: <br>
@@ -207,7 +224,9 @@ This project was created for the 4th module of the backend program at Turing Sch
  `api_key=[string]`
  `profile_id=[integer]`
 
- * DATA RESPONSE:
+ * DATA RESPONSE:<br>
+ ![alt text](https://github.com/mmbensalah/docu_well/blob/master/14%20GET%20:prescriptions.png)
+
 
 ##### Delete a Prescription
  * URI: <br>
@@ -220,8 +239,8 @@ This project was created for the 4th module of the backend program at Turing Sch
  `provider_id=[integer]`
  `prescription_id=[integer]`
 
- * DATA RESPONSE:
-
+ * DATA RESPONSE:<br>
+![alt text](https://github.com/mmbensalah/docu_well/blob/master/15%20DELETE%20:prescription.png)
 
 ## 📊 How to Run Tests
 
