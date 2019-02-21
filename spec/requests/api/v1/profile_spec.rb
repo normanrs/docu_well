@@ -2,9 +2,8 @@ require 'rails_helper'
 
 describe 'the profile endpoint' do
   it 'returns users profiles' do
-    provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id )
     create(:insurance, profile_id: profile.id)
     create(:insurance, profile_id: profile.id)
 
@@ -23,15 +22,12 @@ describe 'the profile endpoint' do
     expect(data[0][:attributes].keys.include?(:bp_diastolic)).to be(true)
     expect(data[0][:attributes].keys.include?(:heart_rate)).to be(true)
     expect(data[0][:attributes].keys.include?(:blood_type)).to be(true)
-    expect(data[0][:attributes].keys.include?(:provider)).to be(true)
     expect(data[0][:attributes].keys.include?(:insurances)).to be(true)
-    expect(data[0][:attributes][:provider][:id]).to eq(provider.id)
     expect(data[0][:attributes][:insurances].count).to eq(2)
     expect(data[0][:attributes][:insurances][0].keys.include?(:id)).to be(true)
   end
 
   it 'POST /profiles creates profile and returns profile content' do
-    provider  = create(:provider)
     user      = create(:user)
     given_name = 'Louisa May'
     surname= 'Alcott'
@@ -45,8 +41,8 @@ describe 'the profile endpoint' do
 
     data = { given_name: given_name, surname: surname, dob: dob, height: height,
              weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
-             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
-             provider_id: provider.id }
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0
+           }
 
     post "/api/v1/profiles?api_key=#{user.api_key}", params: data
     expect(response.status).to eq 201
@@ -62,12 +58,9 @@ describe 'the profile endpoint' do
     expect(data[:attributes].keys.include?(:bp_diastolic)).to be(true)
     expect(data[:attributes].keys.include?(:heart_rate)).to be(true)
     expect(data[:attributes].keys.include?(:blood_type)).to be(true)
-    expect(data[:attributes].keys.include?(:provider)).to be(true)
-    expect(data[:attributes][:provider][:id]).to eq(provider.id)
   end
 
   it 'will return error without api key' do
-    provider  = create(:provider)
     user      = create(:user)
     given_name = 'Louisa May'
     surname= 'Alcott'
@@ -81,8 +74,8 @@ describe 'the profile endpoint' do
 
     data = { given_name: given_name, surname: surname, dob: dob, height: height,
              weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
-             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
-             provider_id: provider.id }
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0
+           }
 
     post "/api/v1/profiles", params: data
     expect(response.status).to eq 400
@@ -92,7 +85,6 @@ describe 'the profile endpoint' do
   end
 
   it 'will return error without required info' do
-    provider  = create(:provider)
     user      = create(:user)
     given_name = 'Louisa May'
     surname= 'Alcott'
@@ -105,8 +97,8 @@ describe 'the profile endpoint' do
 
     data = { given_name: given_name, surname: surname, height: height,
              weight: weight, bp_systolic: bp_systolic, bp_diastolic: bp_diastolic,
-             heart_rate: heart_rate, blood_type: blood_type, user_id: 0,
-             provider_id: provider.id }
+             heart_rate: heart_rate, blood_type: blood_type, user_id: 0
+           }
 
     post "/api/v1/profiles?api_key=#{user.api_key}", params: data
     expect(response.status).to eq 400
@@ -116,9 +108,8 @@ describe 'the profile endpoint' do
   end
 
   it 'deletes profile' do
-    provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     create(:insurance, profile_id: profile.id)
 
@@ -130,9 +121,8 @@ describe 'the profile endpoint' do
   end
 
   it 'PATCH /profiles edits a profile and returns profile content' do
-    provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    profile   = create(:profile, user_id: user.id)
     given_name = 'Louisa May'
     surname= 'Alcott'
 
@@ -148,9 +138,8 @@ describe 'the profile endpoint' do
   end
 
   it 'PATCH /profiles does not edit profile w/o api key' do
-    provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id)
+    profile   = create(:profile, user_id: user.id)
     given_name = 'Louisa May'
     surname= 'Alcott'
 

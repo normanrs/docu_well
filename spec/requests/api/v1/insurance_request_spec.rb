@@ -4,7 +4,7 @@ describe 'the insurance endpoints' do
   it 'POST /insurances returns insurance content in json' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id )
 
     insurance_type = "medical"
     carrier = "Aetna"
@@ -36,7 +36,7 @@ describe 'the insurance endpoints' do
   it 'POST /insurances returns error w/o api key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
 
     insurance_type = "medical"
     carrier = "Aetna"
@@ -62,7 +62,7 @@ describe 'the insurance endpoints' do
     provider   = create(:provider)
     user       = create(:user)
     user1      = create(:user)
-    profile    = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile    = create(:profile, user_id: user.id )
 
     post "/api/v1/insurances?api_key=#{user1.api_key}", params: {profile_id: profile.id}
 
@@ -74,7 +74,7 @@ describe 'the insurance endpoints' do
   it 'GET /insurances returns all insurance objects in json' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     create(:insurance, profile_id: profile.id)
 
@@ -102,7 +102,7 @@ describe 'the insurance endpoints' do
   it 'GET /insurances wont return insurance objects w/o api key' do
     provider  = create(:provider)
     user      = create(:user)
-    profile   = create(:profile, user_id: user.id, provider_id: provider.id )
+    profile   = create(:profile, user_id: user.id)
     create(:insurance, profile_id: profile.id)
     create(:insurance, profile_id: profile.id)
 
@@ -116,7 +116,7 @@ describe 'the insurance endpoints' do
 
   it 'DELETE /insurances' do
     provider  = create(:provider)
-    profile   = create(:profile, provider_id: provider.id )
+    profile   = create(:profile)
     insurance = create(:insurance, profile_id: profile.id)
     api_key   = User.find(profile.user_id).api_key
 
@@ -128,8 +128,8 @@ describe 'the insurance endpoints' do
 
   it 'will not DELETE /insurances if insurance,profile,user do not correspond' do
     provider   = create(:provider)
-    profile    = create(:profile, provider_id: provider.id )
-    profile1   = create(:profile, provider_id: provider.id )
+    profile    = create(:profile)
+    profile1   = create(:profile)
     insurance  = create(:insurance, profile_id: profile.id)
     api_key    = User.find(profile1.user_id).api_key
 
@@ -141,8 +141,8 @@ describe 'the insurance endpoints' do
 
   it 'will not DELETE /insurances if no api key' do
     provider   = create(:provider)
-    profile    = create(:profile, provider_id: provider.id )
-    profile1   = create(:profile, provider_id: provider.id )
+    profile    = create(:profile)
+    profile1   = create(:profile)
     insurance  = create(:insurance, profile_id: profile.id)
 
     delete "/api/v1/insurances", params: {insurance_id: insurance.id}
