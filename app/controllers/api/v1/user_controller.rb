@@ -2,10 +2,7 @@ class Api::V1::UserController < ApplicationController
   def create
     begin
       user = User.create(user_params)
-      saved = user.save!
-      if saved
-        user.update(api_key: user.create_api_key)
-      end
+      raise 'Bad data' unless user.save
       render json: UserSerializer.new(user), status: 201
     rescue StandardError => err
       render json:{message: err}, status: 400
@@ -13,17 +10,18 @@ class Api::V1::UserController < ApplicationController
   end
 
   def show
-    user = User.find_by(email: user_params[:email])
-    if user && user.authenticate(user_params[:password])
+    begin
+      user = User.find_by(email: user_params[:email])
+      raise 'Bad login' unless user && user.authenticate(user_params[:password])
       render json: UserSerializer.new(user)
-    else
-      render json: { message: 'User Not Found' }, status: 404
+    rescue StandardError => err
+      render json: { message: err }, status: 404
     end
   end
 
   private
 
   def user_params
-    params.permit(:email, :password, :api_key)
+    params.permit(:email, :password)
   end
 end

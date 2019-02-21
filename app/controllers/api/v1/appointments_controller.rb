@@ -43,8 +43,4 @@ class Api::V1::AppointmentsController < ApplicationController
     Profile.where(user_id: find_user.id).pluck(:id)
   end
 
-  def convert_time(unix_string)
-    DateTime.striptime(unix_string, '%s')
-  end
-
 end
