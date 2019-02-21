@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_233355) do
+ActiveRecord::Schema.define(version: 2019_02_21_000854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,6 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
     t.integer "heart_rate", limit: 2
     t.integer "blood_type", limit: 2
     t.bigint "user_id"
-    t.bigint "provider_id"
-    t.index ["provider_id"], name: "index_profiles_on_provider_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -93,7 +91,6 @@ ActiveRecord::Schema.define(version: 2019_02_13_233355) do
   add_foreign_key "insurances", "profiles"
   add_foreign_key "prescriptions", "profiles"
   add_foreign_key "prescriptions", "providers"
-  add_foreign_key "profiles", "providers"
   add_foreign_key "profiles", "users"
   add_foreign_key "tests", "appointments"
 end
