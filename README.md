@@ -1,103 +1,231 @@
-# 📱 Project/App Title
-> Subtitle here
+# 📱 DocUWell
 
-Introdution/Description of what the program does.
+## Project Objective
+This project was created for the 4th module of the backend program at Turing School of Software & Design. This app uses TDD and Ruby on Rails to create API endpoints for a frontend app "DocUWell" to use. The frontend app in production can be found at  <https://herokuapp.com>. The app was designed to take in and store a user's medical data i.e their appointments, providers, insurance information and prescriptions. 
 
 ## ⚙️ Initial Setup
+### Running the code locally
+1. clone the git repository
+2. run `rails s` and visit `localhost:3000/api/v1` to begin interacting with API endpoints
 
-OS X & Linux:
+### Production url 
 
-```sh
-bundle
-rails s (to spin up the server)
-```
+`https://my-health-tracker.herokuapp.com/api/v1`
 
-## 🕹 How to Use
+### 🕹 How to Use
 
-Describe the app's features
+##### Create a User
+ * URI: <br>
+ `/users`
+ * METHOD: <br>
+ `POST`
+ * DATA PARAMS: <br>
+ `email=[string]`
+ `password=[string]`
+ * DATA RESPONSE: <br>
 
-The app provides the following endpoints:
 
-`POST https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+##### Retrieve a User's API key
+ * URI: <br>
+ `/users`
+ * METHOD: <br>
+  `GET`
+ * DATA PARAMS: <br>
+ `email=[string]`
+ `password=[string]`
+ * DATA RESPONSE:
 
-response:<br/>
-`{"data"=>`<br/>
-  `{"id"=>"4", "type"=>"user", "attributes"=>`<br/>
-  	`{"api_key"=>"MQjto5FO_R9SUZcbCI0_DQ"}`<br/>
-  `}`<br/>
-`}`<br/>
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/user    params: { email: 'email@gmail.com', password: '12345' }`
+##### Create a Provider
+ * URI: <br>
+ `/providers`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `given_name=[string]`
+ `surname=[string]`
+ `street_address=[string]`
+ `city=[string]`
+ `state=[string]`
+ `zip=[string]`
+ `phone=[string]`
+ `speciality=[enum]` <br>
+ `enum = allergist, anesthesiologist, cardiologist, dentist, dermatologist,
+  endocrinologist, general_practitioner, gastroenterologist, geneticist,
+  geriatric_specialist, gynecologist, hematologist, internist, massage_therapist,
+  naturopath, nephrologist, neurologist, obstetrician, oncologist, ophthalmologist,
+  optometrist, osteopath, palliative, pediatrician, podiatrist, psychiatrist,
+  pulmonologist, radiologist, rheumatologist, surgeon, urologist`
+ * DATA RESPONSE:
 
-response:<br/>
-`{"data"=>`
-  `{"id"=>"1", "type"=>"user", "attributes"=>` <br/>
-      `{"api_key"=>"6gZvWv2xWtYpEyLWLZAY-g"}` <br/>
-  `}`
-`}`
+##### Retrieve all Providers
+ * URI: <br>
+ `/providers`
+ * METHOD: <br>
+  `GET`
+ * DATA PARAMS: <br>
+ none
+ * DATA RESPONSE:
 
-GET  `https://my-health-tracker.herokuapp.com/api/v1/profile params: { api_key: '6gZvWv2xWtYpEyLWLZAY-g' }`
+##### Create a Profile for User
+ * URI: <br>
+ `/profiles`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `user_id=[integer]`
+ `given_name=[string]`
+ `surname=[string]`
+ `dob=[unix time]`
+ `height=[integer]`
+ `weight=[integer]`
+ `bp_systolic=[integer]`
+ `bp_diastolic=[integer]`
+ `heart_rate=[integer]`
+ `blood_type=[enum]` <br>
+ `enum = o_negative, o_positive, a_negative, a_positive, b_negative, b_positive, ab_negative, ab_positive`
+ * DATA RESPONSE:
 
-response:<br/>
-`{:data=>` <br/>
-  `{:id=>"1", :type=>"profile", :attributes=>` <br/>
-    `{:given_name=>"Ms. Anisa Mohr",
-     :surname=>"Aristotle",
-     :dob=>"1981-02-22",
-     :height=>68,
-     :weight=>16,
-     :bp_systolic=>124,
-     :bp_diastolic=>107,
-     :heart_rate=>147,
-     :blood_type=>"b_negative",
-     :provider=>` <br/>
-      `{:id=>1,
-       :first_name=>"Artemis",
-       :last_name=>"Vision",
-       :street_address=>"150 Kecia Valley",
-       :city=>"Port Tessa",
-       :state=>"KY",
-       :zip=>"82725",
-       :phone=>"1-718-305-2952"}` <br/>
-	  `}`
-  `}`
- `}`
+##### Retrieve a Profile
+ * URI: <br>
+ `/profiles`
+ * METHOD: <br>
+  `GET`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Edit a Profile
+ * URI: <br>
+ `/profiles`
+ * METHOD: <br>
+  `PATCH`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ the profile param to be modified
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Create an Insurance
+ * URI: <br>
+ `/insurances`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ `carrier=[string]`
+ `group_number=[string]`
+ `id_number=[string]`
+ `phone_number=[string]`
+ `insurance_type=[enum]` <br>
+ `enum = medical, dental, vision, supplemental`
+ 
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Retrieve an Insurance
+ * URI: <br>
+ `/insurances`
+ * METHOD: <br>
+  `GET`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ 
+ * DATA RESPONSE:
 
-## 🚧 Known Issues
+##### Delete an Insurance
+ * URI: <br>
+ `/insurances`
+ * METHOD: <br>
+  `DELETE`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `insurance_id=[integer]`
+ 
+ * DATA RESPONSE:
 
-Describe the app's known limitations/problems
+##### Create an Appointment
+ * URI: <br>
+ `/appointments`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ `provider_id=[integer]`
+ `datetime=[unix]`
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Retrieve an Appointment
+ * URI: <br>
+ `/appointments`
+ * METHOD: <br>
+  `GET`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ 
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Delete an Appointment
+ * URI: <br>
+ `/appointments`
+ * METHOD: <br>
+  `DELETE`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ `appointment_id=[integer]`
+ * DATA RESPONSE:
 
-FEATURE
-stuff it needs
-stuff it does
+##### Create a Prescription
+ * URI: <br>
+ `/prescriptions`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ `provider_id=[integer]`
+ `name=[string]`
+ `date=[unix]`
+ `directions=[string]`
+ `refill=[boolean]`
+ `dose_units=[enum]`<br>
+
+ * DATA RESPONSE:
+
+##### Retrieve a Prescription
+ * URI: <br>
+ `/prescriptions`
+ * METHOD: <br>
+  `POST`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+
+ * DATA RESPONSE:
+
+##### Delete a Prescription
+ * URI: <br>
+ `/prescriptions`
+ * METHOD: <br>
+  `DELETE`
+ * DATA PARAMS: <br>
+ `api_key=[string]`
+ `profile_id=[integer]`
+ `provider_id=[integer]`
+ `prescription_id=[integer]`
+
+ * DATA RESPONSE:
+
 
 ## 📊 How to Run Tests
 
-OS X & Linux:
-
-```sh
-rspec (to run tests)
-```
+1. from the terminal and the project root, run `rspec`
 
 ## 🏗 Tech Stack List
 
@@ -115,7 +243,7 @@ rspec (to run tests)
 
 ## 🚀 Core Contributors
 
-**Norm Schultz**
+**Norm Schultz & Miriam Bensalah**
 Twitter:[@normanrs](https://twitter.com/normanrs)
 Github:[https://github.com/normanrs](https://github.com/normanrs/)
 Web:[http://www.normanrschultz.com](http://www.normanrschultz.com)
