@@ -45,7 +45,7 @@ describe 'the provider endpoint' do
     expect(data[:attributes].keys.include?(:speciality)).to be(true)
   end
 
-  it 'POST /providers creates provider and returns provider content in json' do
+  it 'POST /providers does not create provider on bad address' do
     user      = create(:user)
     data = {
       api_key: user.api_key,

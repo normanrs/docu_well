@@ -3,10 +3,18 @@ class Api::V1::InsurancesController < ApplicationController
   def create
     begin
       api_key_error
-      insurance = Insurance.create(params_in)
-      render json: InsuranceSerializer.new(insurance), status: 201
+      insurance = Insurance.new(params_in)
+      if insurance.save
+        render json: InsuranceSerializer.new(insurance), status: 201
+      else
+        raise 'Duplicate record'
+      end
     rescue StandardError => err
-      render json:{message: err}, status: 400
+      if err.message == 'Duplicate record'
+        render json:{message: err}, status: 409
+      else
+        render json:{message: err}, status: 400 
+      end
     end
   end
 
@@ -56,6 +64,6 @@ class Api::V1::InsurancesController < ApplicationController
 
   def api_key_error
     id_in = params[:profile_id].to_i
-    raise 'Bad data' unless profile_ids.include?(id_in)
+    raise 'Bad API key' unless profile_ids.include?(id_in)
   end
 end

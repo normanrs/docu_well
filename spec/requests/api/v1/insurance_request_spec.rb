@@ -42,8 +42,8 @@ describe 'the insurance endpoints' do
     post "/api/v1/insurances?api_key=#{user.api_key}", params: data
     post "/api/v1/insurances?api_key=#{user.api_key}", params: data
     expect(response.status).to eq 409
-    data = JSON.parse(response.body, symbolize_names: true)
-    expect(data["message"]).to eq("Attempting to create duplicate insurance record")
+    data = JSON.parse(response.body)
+    expect(data["message"]).to eq("Duplicate record")
   end
 
   it 'POST /insurances returns error w/o api key' do
@@ -82,7 +82,7 @@ describe 'the insurance endpoints' do
 
     expect(response.status).to eq 400
     data = JSON.parse(response.body)
-    expect(data["message"]).to eq("Bad data")
+    expect(data["message"]).to eq("Bad API key")
   end
 
   it 'GET /insurances returns all insurance objects in json' do
