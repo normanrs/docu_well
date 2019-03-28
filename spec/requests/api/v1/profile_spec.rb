@@ -148,6 +148,6 @@ describe 'the profile endpoint' do
     patch "/api/v1/profiles", params: data
     expect(response.status).to eq 400
     message = JSON.parse(response.body)["message"]
-    expect(message).to eq("Bad API key")
+    expect(data["message"]).to_not be_empty
   end
 end

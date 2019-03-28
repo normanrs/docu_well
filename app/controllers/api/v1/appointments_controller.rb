@@ -1,6 +1,12 @@
 class Api::V1::AppointmentsController < ApplicationController
 
   def index
+    
+    begin
+      key_check
+    rescue StandardError => err
+      
+    end
     appointments = Appointment.where(profile_id: params_in[:profile_id])
     render json: AppointmentSerializer.new(appointments), status: 200
   end
@@ -35,12 +41,12 @@ class Api::V1::AppointmentsController < ApplicationController
     params.permit(:profile_id, :datetime, :provider_id, :appointment_id)
   end
 
-  def find_user
-    User.find_by(api_key: params[:api_key])
-  end
+  # def find_user
+  #   User.find_by(api_key: params[:api_key])
+  # end
 
-  def profile_ids
-    Profile.where(user_id: find_user.id).pluck(:id)
-  end
+  # def profile_ids
+  #   Profile.where(user_id: find_user.id).pluck(:id)
+  # end
 
 end

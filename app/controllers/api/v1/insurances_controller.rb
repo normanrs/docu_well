@@ -2,7 +2,7 @@ class Api::V1::InsurancesController < ApplicationController
 
   def create
     begin
-      api_key_error
+      key_check
       insurance = Insurance.new(params_in)
       if insurance.save
         render json: InsuranceSerializer.new(insurance), status: 201
@@ -20,7 +20,7 @@ class Api::V1::InsurancesController < ApplicationController
 
   def index
     begin
-      api_key_error
+      key_check
       insurances = Insurance.where(profile_id: params[:profile_id])
       render json: InsuranceSerializer.new(insurances)
     rescue StandardError => err
@@ -50,20 +50,8 @@ class Api::V1::InsurancesController < ApplicationController
                   :profile_id)
   end
 
-  def find_user
-    User.find_by(api_key: params[:api_key])
-  end
-
-  def profile_ids
-    Profile.where(user_id: find_user.id).pluck(:id)
-  end
-
   def find_insurance
     Insurance.find(params[:insurance_id])
   end
 
-  def api_key_error
-    id_in = params[:profile_id].to_i
-    raise 'Bad API key' unless profile_ids.include?(id_in)
-  end
 end
