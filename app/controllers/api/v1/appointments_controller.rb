@@ -1,7 +1,6 @@
 class Api::V1::AppointmentsController < ApplicationController
 
   def index
-    
     begin
       key_check
       appointments = Appointment.where(profile_id: params_in[:profile_id])
@@ -39,13 +38,5 @@ class Api::V1::AppointmentsController < ApplicationController
   def params_in
     params.permit(:profile_id, :datetime, :provider_id, :appointment_id)
   end
-
-  # def find_user
-  #   User.find_by(api_key: params[:api_key])
-  # end
-
-  # def profile_ids
-  #   Profile.where(user_id: find_user.id).pluck(:id)
-  # end
 
 end

@@ -13,7 +13,7 @@ class Api::V1::InsurancesController < ApplicationController
       if err.message == 'Duplicate record'
         render json:{message: err}, status: 409
       else
-        render json:{message: err}, status: 400 
+        err_message(err) 
       end
     end
   end
@@ -24,7 +24,7 @@ class Api::V1::InsurancesController < ApplicationController
       insurances = Insurance.where(profile_id: params[:profile_id])
       render json: InsuranceSerializer.new(insurances)
     rescue StandardError => err
-      render json:{message: err}, status: 400
+      err_message(err)
     end
   end
 
@@ -35,7 +35,7 @@ class Api::V1::InsurancesController < ApplicationController
       insurance.delete
       render json: {"message": "Insurance deleted"}
     rescue StandardError => err
-      render json:{message: err}, status: 400
+      err_message(err)
     end
   end
 
