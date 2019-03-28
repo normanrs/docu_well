@@ -20,6 +20,22 @@ describe 'the appointments endpoint' do
     expect(data[0][:attributes].keys.include?(:profile_id)).to be(true)
   end
 
+  it 'doesnt return users appointments with bad API key' do
+    provider  = create(:provider)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id)
+    create(:insurance, profile_id: profile.id)
+    create(:appointment, profile_id: profile.id)
+    create(:appointment, profile_id: profile.id)
+
+    data = { api_key: 'hahahaha', profile_id: profile.id }
+    get "/api/v1/appointments", params: data
+
+    expect(response.status).to eq 401
+    data = JSON.parse(response.body, symbolize_names: true)
+    expect(data[:message]).not_to be_empty
+  end
+
   it 'POST /appointments creates appointment and returns appointment content in json' do
     provider  = create(:provider)
     user      = create(:user)
@@ -55,7 +71,7 @@ describe 'the appointments endpoint' do
 
     post "/api/v1/appointments", params: data
 
-    expect(response.status).to eq 400
+    expect(response.status).to eq 401
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).not_to be_empty
   end
@@ -100,7 +116,7 @@ describe 'the appointments endpoint' do
 
     data = { api_key: 'hahahaha', profile_id: profile.id, appointment_id: appt.id }
     delete "/api/v1/appointments", params: data
-    expect(response.status).to eq 400
+    expect(response.status).to eq 401
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).not_to be_empty
   end

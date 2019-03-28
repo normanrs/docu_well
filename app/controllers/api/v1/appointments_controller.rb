@@ -4,34 +4,33 @@ class Api::V1::AppointmentsController < ApplicationController
     
     begin
       key_check
+      appointments = Appointment.where(profile_id: params_in[:profile_id])
+      render json: AppointmentSerializer.new(appointments), status: 200
     rescue StandardError => err
-      
+      err_message(err)
     end
-    appointments = Appointment.where(profile_id: params_in[:profile_id])
-    render json: AppointmentSerializer.new(appointments), status: 200
   end
 
   def create
-    begin
-      id_in = params[:profile_id].to_i
-      raise 'Bad API key' unless profile_ids.include?(id_in)
+    begin 
+      key_check
       appointment = Appointment.create(params_in)
       raise 'Bad data' unless appointment.save
       render json: AppointmentSerializer.new(appointment), status: 201
     rescue StandardError => err
-      render json:{message: err}, status: 400
+      err_message(err)
     end
   end
 
   def delete
     begin
-      id_in = params[:profile_id].to_i
+      key_check
       appt_in = params_in[:appointment_id].to_i
-      raise 'Bad API key' unless profile_ids.include?(id_in)
       Appointment.destroy(appt_in)
       render json:{message:'Appointment deleted!'}, status: 200
     rescue StandardError => err
-      render json:{message: err}, status: 400
+      err_message(err)
+      # render json:{message: err}, status: 400
     end
   end
 
