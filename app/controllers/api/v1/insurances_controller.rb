@@ -19,23 +19,17 @@ class Api::V1::InsurancesController < ApplicationController
   end
 
   def index
-    begin
-      key_check
+    err_handle do 
       insurances = Insurance.where(profile_id: params[:profile_id])
       render json: InsuranceSerializer.new(insurances)
-    rescue StandardError => err
-      err_message(err)
     end
   end
 
   def delete
-    begin
-      raise 'Bad data' unless profile_ids.include?(find_insurance.profile_id)
+    err_handle do 
       insurance = find_insurance
       insurance.delete
       render json: {"message": "Insurance deleted"}
-    rescue StandardError => err
-      err_message(err)
     end
   end
 

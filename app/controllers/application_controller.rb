@@ -1,5 +1,14 @@
 class ApplicationController < ActionController::API
 
+  def err_handle
+    begin
+      key_check
+      yield 
+    rescue StandardError => err
+      err_message(err)
+    end
+  end
+
   def err_message(error)
     if error.message[0..2].to_i > 400
       status_number = error.message[0..2].to_i

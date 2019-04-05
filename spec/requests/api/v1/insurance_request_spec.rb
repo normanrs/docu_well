@@ -130,11 +130,13 @@ describe 'the insurance endpoints' do
 
   it 'DELETE /insurances' do
     provider  = create(:provider)
-    profile   = create(:profile)
+    user      = create(:user)
+    profile   = create(:profile, user_id: user.id)
     insurance = create(:insurance, profile_id: profile.id)
-    api_key   = User.find(profile.user_id).api_key
+    # api_key   = User.find(profile.user_id).api_key
+    data = { api_key: user.api_key, profile_id: profile.id, insurance_id: insurance.id }
 
-    delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
+    delete "/api/v1/insurances", params: data
     expect(response.status).to eq 200
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to_not be_empty
@@ -148,7 +150,7 @@ describe 'the insurance endpoints' do
     api_key    = User.find(profile1.user_id).api_key
 
     delete "/api/v1/insurances?api_key=#{api_key}", params: {insurance_id: insurance.id}
-    expect(response.status).to eq 400
+    expect(response.status).to eq 401
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to_not be_empty
   end
@@ -160,7 +162,7 @@ describe 'the insurance endpoints' do
     insurance  = create(:insurance, profile_id: profile.id)
 
     delete "/api/v1/insurances", params: {insurance_id: insurance.id}
-    expect(response.status).to eq 400
+    expect(response.status).to eq 401
     data = JSON.parse(response.body, symbolize_names: true)
     expect(data[:message]).to_not be_empty
   end

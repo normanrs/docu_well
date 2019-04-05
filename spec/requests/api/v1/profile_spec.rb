@@ -147,7 +147,7 @@ describe 'the profile endpoint' do
 
     patch "/api/v1/profiles", params: data
     expect(response.status).to eq 400
-    message = JSON.parse(response.body)["message"]
+    data = JSON.parse(response.body)
     expect(data["message"]).to_not be_empty
   end
 end
